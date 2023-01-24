@@ -1,0 +1,100 @@
+
+.container {
+    display: flex;
+    justify-content: center;
+    margin-left: 120px;
+    margin-top: 30px;
+}
+
+.box {
+    background: #fff;
+    width: 95%;
+    border-radius: 10px;
+    display: inline;
+    justify-content: center;
+    padding: 20px;
+    font-size: 20px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    overflow: auto;
+    margin-left: 65px;
+}
+
+.box_topic {
+    margin: 30px;
+}
+
+.topic {
+    font-size: 26px;
+}
+
+.topic .edit {
+    color: #ddd;
+}
+
+.topic .edit:hover {
+    color: #555;
+}
+
+.details {
+    font-size: 20px;
+    margin-left: 50px;
+}
+
+.details a {
+    text-decoration: none;
+    color: #333;
+}
+.details a:hover {
+    text-decoration: none;
+    color: #333;
+}
+
+.input {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    font-size: 28px;
+}
+
+::placeholder {
+    color: #111;
+}
+
+.input>.txt-underline {
+    border: none;
+    outline: none;
+}
+
+.underline {
+    transition: all 0.5s;
+    display: inline-block;
+    bottom: 0;
+    left: -100%;
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background-color: #000;
+}
+
+.input>.txt-underline:focus+.underline {
+    left: 0;
+}
+.box_detail{
+    margin: 10px;
+}
+.btn-submit{
+    background-color: #22618f;
+    color: #fff;
+    height : 40px;
+    width: 80px;
+    border-radius: 5px;
+    border: none;
+}
+
+.box_two{
+    width: 45%;
+    display: inline;
+    justify-content: center;
+    padding: 20px;
+    font-size: 20px;
+}
