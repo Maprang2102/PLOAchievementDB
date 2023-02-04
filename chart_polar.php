@@ -1,39 +1,56 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Document</title> -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
-</head>
+
+<!-- </head> -->
 <?php
-require('./connect_program.php');
-$query = "SELECT * FROM assignment ";
-$sql = mysqli_query($connect, $query);
-foreach ($sql as $data) {
-  // $maximum_point[] = $data['maximum_point'];
-  // $weight_value[] = $data['weight_value'];
-  $assignment_number[] = $data['assignment_number'];
-  $weight[] = ($data['point'] * $data['weight_value']) / 100;
-}
+// require('./connect_program.php');
+// $query = "SELECT * FROM assignment ";
+// $sql = mysqli_query($connect, $query);
+// foreach ($sql as $data) {
+//   // $maximum_point[] = $data['maximum_point'];
+//   // $weight_value[] = $data['weight_value'];
+//   $assignment_number[] = $data['assignment_number'];
+//   $weight[] = ($data['point'] * $data['weight_value']) / 100;
+// }
 ?>
 
-<body>
-  <div class="col-md-8 center">
-    <canvas id="myChart" width="500px" height="500px"></canvas>
-  </div>
+<!-- <body> -->
+  <?php 
+  function chart_polar(){ 
+    $value_full=0;
+  $value_max=0;
+  $value_min=0;
+  $value_avg=0;?>
+    <div class="row md-8 center">
+      <div class="col-7">
+      <canvas id="myChart" width="500px" height="500px"></canvas>
+      </div>
+      <div class="col-2">
+      <input class="btn btn-outline-primary" id="btn-full" type="button" value="<?php echo ($value_full==0)? "Full Score":"show" ?>">
+      <input class="btn btn-outline-primary" id="btn-max" type="button" value="Maximum">
+      <input class="btn btn-outline-primary" id="btn-min" type="button" value="Minimun">
+      <input class="btn btn-outline-primary" id="btn-avg" type="button" value="Average">
+      </div>
+    </div>
+    
   <script>
     const ctx = document.getElementById('myChart').getContext('2d');
     const myChart = new Chart(ctx, {
       type: 'polarArea',
       data: {
-        labels: <?php echo  json_encode($assignment_number);  ?>,
+        // labels: <?php //echo  json_encode($assignment_number);  ?>,
         datasets: [{
-            display: true,
-            showLine: true,
+            // display: true,
+            // showLine: false,
             data: [
               3,
               7,
@@ -55,8 +72,8 @@ foreach ($sql as $data) {
             borderWidth: "3",
             label: 'Minimum', // for legend
           }, {
-            display: true,
-            showLine: true,
+            // display: true,
+            // showLine: true,
             data: [
               8,
               11,
@@ -80,8 +97,8 @@ foreach ($sql as $data) {
 
             label: 'Average', // for legend
           }, {
-            display: true,
-            showLine: true,
+            // display: true,
+            // showLine: true,
             data: [
               14,
               15,
@@ -129,13 +146,13 @@ foreach ($sql as $data) {
 
         ],
         labels: [
-          "Red",
-          "Green",
-          "Orange",
-          "Grey",
-          "Blue",
-          "Black",
-          "other"
+          "CLO1",
+          "CLO2",
+          "CLO3",
+          "CLO4",
+          "CLO5",
+          "CLO6",
+          "CLO7",
         ]
       },
       options: {
@@ -184,17 +201,23 @@ foreach ($sql as $data) {
       }
 
     });
+    $("#btn-full").on("click", function() {
+      myChart.data.datasets[3].data = null;
+      myChart.update();
+      <?php $value_full=1; ?>
+    });
   </script>
-  <script>
-    const myChart = new Chart(
+  <?php } ?>
+  <!-- <script>
+    const _myChart = new Chart(
       document.getElementById('myChart'),
       config
     );
-  </script>
+  </script> -->
 
 
 
 
-</body>
+<!-- </body>
 
-</html>
+</html> -->

@@ -15,53 +15,45 @@
     <?php
     include './navbar.php';
     require('./connect_program.php');
+    require('./select.php');
+    require('./chart_polar.php');
+    // require('./chart_bar.php');
     ?>
     <div class="container">
         <div class="box">
             <h4>กราฟ</h4>
             <hr>
+            
             <!-- sort data รายวิชา/หลักสูตร หลักสูตรอะไร/วิชาอะไร  -->
             <select class="form-select" onchange="location = this.value;">
                 <option value="">เลือกหลักสูตร/รายวิชา</option>
                 <option value="?group=1">หลักสูตร</option>
                 <option value="?group=2">รายวิชา</option>
-            </select><br>
+            </select>
             <?php
             @$group = $_GET['group'];
             if ($group == 1) {
-                $group_name = "program_name";
-                $group_number = "id_program";
-                $query = "SELECT * FROM program ";
+                select_program_showchart();
+                @$points = $_GET["program_id"];
             } elseif ($group == 2) {
-                $group_name = "course_name";
-                $group_number = "course_id";
-                $query = "SELECT * FROM course_in_program ";
+                select_course_section_showchart();
+                @$points = $_GET["year"];
             }
             ?>
-            <select class="form-select" onchange="location = this.value;">
-                <option value="">เลือกหลักสูตร/รายวิชา</option>
-                <?php
-                $sql = mysqli_query($connect, $query);
-                while ($row = mysqli_fetch_array($sql)) {
-                ?>
-                    <option value="?group=<?php echo $group ?>&subgroup=<?php echo $row[$group_number] ?>"><?php echo $row[$group_name]; ?></option>
-                <?php }
-                @$subgroup = $_GET['subgroup']; ?>
-            </select>
+            
         </div>
     </div>
-    <?php if (@$subgroup) { ?>
+    <?php echo $points;
+     if (@$points) { ?>
         <div class="container">
             <div class="box">
                 <div class="row justify-content-start">
-                    <div class="col-4">
-                        <select class="form-select" onchange="location = this.value;">
-                            <option value="">ประเภทของกราฟ</option>
-                            <option value="?group=<?php echo $group ?>&subgroup=<?php echo $subgroup ?>&type=polarchart">Polar Area Chart</option>
-                            <option value="?group=<?php echo $group ?>&subgroup=<?php echo $subgroup ?>&type=barchart">Bar Chart</option>
-                        </select>
-                    </div>
-                    <div class="col-8" style="height:50rem;">
+                    
+                        <form method="post" >
+                        <button type="submit" class="btn btn-outline-primary" name="polarchart">Polarchart</button>
+                        <button type="submit" class="btn btn-outline-primary" name="barchart">Barchart</button>
+                        </form>
+                    
                         <?php
                         // $subgroup = $_GET['subgroup'];
                         // include 'calculate.php';
@@ -69,20 +61,19 @@
                         // $group_name;
                         // $group_number 
 
-                        @$type = $_GET['type'];
-                        if ($type == 'polarchart') {
-                            "<div style='width: 100px; height: 100px;'>" .
-                                // require('./polar_chart.php');
-                                require('./chart_polar.php');
-                            "</div>";
-                        } elseif ($type == 'barchart') {
-                            require('./chart_bar.php');
+                        // @$type = $_post['type_chart'];
+                        if (isset($_POST['polarchart'])) {
+                                
+                                chart_polar();
+                            
+                        } elseif (isset($_POST['barchart'])) {
+                            
                         }
                         ?>
                     </div>
                 </div>
             </div>
-        </div>
+        
     <?php } ?>
 </body>
 

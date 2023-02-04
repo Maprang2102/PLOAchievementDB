@@ -55,7 +55,7 @@
         <div class="box" style="font-size:20px; overflow: auto;">
             <form method="post" style="justify-content: flex-end; display: flex;">
                 <input class="btn btn-outline-primary" type="submit" name="input_assignment" value="Add Assignment" />
-                <input class="btn btn-outline-primary" type="submit" name="input_sudassign" value="Add Sub assignment" />
+                <input class="btn btn-outline-primary" type="submit" name="input_sudassign" value="Add Sub assignment" style="margin-left: 16px;"/>
                 <input class="btn btn-outline-primary" type="submit" name="import_excel" value="Upload Excel" style="margin-left: 16px;" />
                 <!-- <input class="btn btn-outline-primary" type="submit" name="edit_table" value="Edit Table" style="margin-left:16px;" onclick="undisable() " /> -->
                 <br>

@@ -85,11 +85,15 @@
                 $sql_table1 = mysqli_query($connect, $sub_assign);
                 $count_clo = mysqli_num_rows($clo_table);
                 $count_txt = 0;
-
+                @$assignment_name = mysqli_query($connect, "SELECT * FROM assignment WHERE assign_id ='$assignment'");
+            while ($assign_name = mysqli_fetch_array($assignment_name)) {
+                $assign_name1 = $assign_name['assign_name'];
+            }
                 ?>
+                <h4><?php echo $assign_name1; ?></h4><hr>
                 <form method="post" action="add_score_sql.php">
                     <table style='width:100%;' class="table table-hover ">
-                        <thead>
+                        <thead style="background-color: #fff;">
                             <th rowspan="2">ชื่อ-นามสกุล</th>
                             <?php while ($assign1 = mysqli_fetch_array($sql_table1)) { ?>
                                 <th>
@@ -177,7 +181,9 @@
                                 </tr><?php } ?>
                         </tbody>
                     </table>
-                    <button type="submit" name="btnSave">Save</button>
+                    <div style="justify-content: flex-end; display: flex;">
+                    <button class="btn btn-outline-primary" type="submit" name="btnSave">Save</button>
+                    </div>
                 </form>
             </div>
         </div> <?php } ?>
