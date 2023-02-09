@@ -17,13 +17,13 @@
     require('./connect_program.php');
     require('./select.php');
     require('./chart_polar.php');
-    // require('./chart_bar.php');
+    require('./chart_bar.php');
     ?>
     <div class="container">
         <div class="box">
             <h4>กราฟ</h4>
             <hr>
-            
+
             <!-- sort data รายวิชา/หลักสูตร หลักสูตรอะไร/วิชาอะไร  -->
             <select class="form-select" onchange="location = this.value;">
                 <option value="">เลือกหลักสูตร/รายวิชา</option>
@@ -40,40 +40,38 @@
                 @$points = $_GET["year"];
             }
             ?>
-            
+
         </div>
     </div>
-    <?php echo $points;
-     if (@$points) { ?>
+    <?php 
+    if (@$points) { ?>
         <div class="container">
             <div class="box">
                 <div class="row justify-content-start">
-                    
-                        <form method="post" >
+
+                    <form method="post">
                         <button type="submit" class="btn btn-outline-primary" name="polarchart">Polarchart</button>
                         <button type="submit" class="btn btn-outline-primary" name="barchart">Barchart</button>
-                        </form>
-                    
-                        <?php
-                        // $subgroup = $_GET['subgroup'];
-                        // include 'calculate.php';
-                        // group_separate($group, $subgroup);
-                        // $group_name;
-                        // $group_number 
+                    </form>
 
-                        // @$type = $_post['type_chart'];
-                        if (isset($_POST['polarchart'])) {
-                                
-                                chart_polar();
-                            
-                        } elseif (isset($_POST['barchart'])) {
-                            
-                        }
-                        ?>
-                    </div>
+                    <?php
+                    // $subgroup = $_GET['subgroup'];
+                    // include 'calculate.php';
+                    // group_separate($group, $subgroup);
+                    // $group_name;
+                    // $group_number 
+
+                    // @$type = $_post['type_chart'];
+                    if (isset($_POST['polarchart'])) {
+                        chart_polar();
+                    } elseif (isset($_POST['barchart'])) {
+                        chart_bar();
+                    }
+                    ?>
                 </div>
             </div>
-        
+        </div>
+
     <?php } ?>
 </body>
 

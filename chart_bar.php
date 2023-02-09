@@ -8,29 +8,20 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-<?php
-require('./connect_program.php');
-$query = "SELECT * FROM assignment ";
-$sql = mysqli_query($connect, $query);
-foreach ($sql as $data) {
-  // $maximum_point[] = $data['maximum_point'];
-  // $weight_value[] = $data['weight_value'];
-  $assignment_number[] = $data['assignment_number'];
-  $weight[] = ($data['point'] * $data['weight_value']) / 100;
-}
-?>
+
+<?php function chart_bar(){ ?>
 <div class="col-md-8">
-    <canvas id="myChart" width="100" height="100"></canvas>
+    <canvas id="myChart1" width="100" height="100"></canvas>
   </div>
   <script>
-    const ctx = document.getElementById('myChart').getContext('2d');
+    const ctx = document.getElementById('myChart1').getContext('2d');
     const myChart1 = new Chart(ctx, {
       type: 'bar',
       data: {
-        labels: <?php echo  json_encode($assignment_number);  ?>, 
+        labels: <?php //echo  json_encode($assignment_number);  ?>, 
         datasets: [{
           label: 'CLO',
-          data: <?php echo json_encode($weight) ?>,
+          data: 12,5,4,8,9,7,15<?php //echo json_encode($weight) ?>,
           backgroundColor: [
             'rgba(255, 99, 132, 0.2)',
             'rgba(54, 162, 235, 0.2)',
@@ -59,11 +50,12 @@ foreach ($sql as $data) {
     }
     });
   </script>
-  <script>
+  <?php } ?>
+  <!-- <script>
     const myChart = new Chart(
       document.getElementById('myChart1'),
       config
     );
-  </script>
+  </script> -->
 </body>
 </html>

@@ -183,6 +183,7 @@ function table_clo()
                 <tr style="background-color:#ddd">
                     <th rowspan="2"></th>
                     <th colspan="<?php echo $count ?>"><?php echo $table_head_detail ?></th>
+                    <th rowspan="2">Weight</th>
                 </tr>
                 <!-- <th rowspan="2" > </th> -->
                 <?php
@@ -221,6 +222,7 @@ function table_clo()
 
                             if (($show_clo[$count_radio] == $clo['clo_id']) && ($show_plo[$count_radio] == $plo['plo_id'])) {
                                 $radio_value = 'yes';
+                                $clo_id = $clo['clo_id'];
                             }
                             $count_plo = $count_plo + 1;
                         ?>
@@ -242,8 +244,19 @@ function table_clo()
                             echo '</script>';
                             $radio_value = 'no';
                         }
+                        
                         $count_plo = 0;
+                        ?><td style="text-align:center;">
+                        <?php
+                        $table_plo_clo = "SELECT * FROM plo_clo WHERE year_str='$year' AND semester_id='$semester' AND course_id='$course' AND section_id='$section' AND clo_id='$clo_id'";
+                        $plo_clo = mysqli_query($connect, $table_plo_clo);
+                        while ($show_pclo1 = mysqli_fetch_array($plo_clo)) {
                         ?>
+                        
+                        <input type="text" name="txtweight" value="<?php echo $show_pclo1['weight'] ?>" style="width: 35px;margin-left:5px">
+                        
+                        <?php } 
+                        $clo_id = 0; ?></td>
                     </tr>
                 </tbody>
 

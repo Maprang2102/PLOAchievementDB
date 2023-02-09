@@ -6,8 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title> -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  
 
 
 <!-- </head> -->
@@ -27,26 +26,38 @@
   <?php 
   function chart_polar(){ 
     $value_full=0;
-  $value_max=0;
-  $value_min=0;
-  $value_avg=0;?>
+    $value_max=0;
+    $value_min=0;
+    $value_avg=0;
+    ?>
     <div class="row md-8 center">
       <div class="col-7">
-      <canvas id="myChart" width="500px" height="500px"></canvas>
+        <canvas id="myChart" width="500px" height="500px"></canvas>
       </div>
       <div class="col-2">
-      <input class="btn btn-outline-primary" id="btn-full" type="button" value="<?php echo ($value_full==0)? "Full Score":"show" ?>">
-      <input class="btn btn-outline-primary" id="btn-max" type="button" value="Maximum">
-      <input class="btn btn-outline-primary" id="btn-min" type="button" value="Minimun">
-      <input class="btn btn-outline-primary" id="btn-avg" type="button" value="Average">
+        <input class="btn btn-outline-primary" id="btn-full" type="button" value="<?php echo ($value_full==0)? "Full Score":"show" ?>">
+        <input class="btn btn-outline-primary" id="btn-max" type="button" value="Maximum">
+        <input class="btn btn-outline-primary" id="btn-min" type="button" value="Minimun">
+        <input class="btn btn-outline-primary" id="btn-avg" type="button" value="Average">
       </div>
     </div>
-    
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
   <script>
     const ctx = document.getElementById('myChart').getContext('2d');
     const myChart = new Chart(ctx, {
       type: 'polarArea',
       data: {
+        labels: [
+          "CLO1",
+          "CLO2",
+          "CLO3",
+          "CLO4",
+          "CLO5",
+          "CLO6",
+          "CLO7",
+        ],
         // labels: <?php //echo  json_encode($assignment_number);  ?>,
         datasets: [{
             // display: true,
@@ -145,15 +156,7 @@
 
 
         ],
-        labels: [
-          "CLO1",
-          "CLO2",
-          "CLO3",
-          "CLO4",
-          "CLO5",
-          "CLO6",
-          "CLO7",
-        ]
+        
       },
       options: {
         showTooltips: true,
@@ -202,9 +205,19 @@
 
     });
     $("#btn-full").on("click", function() {
-      myChart.data.datasets[3].data = null;
-      myChart.update();
-      <?php $value_full=1; ?>
+      if (value_full==0){
+        document.getElementById("btn-full").value = "Show Full";
+        myChart.data.datasets[3].data = null;
+        myChart.update();
+        value_full=1;
+      }
+      else if(value_full==1){
+        document.getElementById("btn-full").value = "Hide Full";
+        myChart.data.datasets[3].data = 0;
+        myChart.update();
+        value_full=0;
+      }
+      
     });
   </script>
   <?php } ?>
