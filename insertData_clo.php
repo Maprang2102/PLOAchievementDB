@@ -8,10 +8,10 @@ if (isset($_POST["btnAdd"])) {
     $clo_year = $_POST['clo_year'];
     $semester = $_POST['semester'];
     $section = $_POST['section'];
-
+    echo " course : ".$course_id." course : ".$clo_code." course : ".$clo_name." course : ".$clo_engname." course : ".$clo_year." course : ".$semester." course : ".$section;
     $course_spl = "INSERT INTO clo(clo_code,clo_name,clo_engname) VALUE('$clo_code','$clo_name','$clo_engname')";
 
-    $result = mysqli_query($connect, $course_spl);
+    // $result = mysqli_query($connect, $course_spl);
     
     $max = "SELECT MAX(clo_id) as 'clo_id' FROM clo";
     $query = mysqli_fetch_array(mysqli_query($connect, $max));
@@ -22,7 +22,7 @@ if (isset($_POST["btnAdd"])) {
     $result1 = mysqli_query($connect, $course_clo);
 
     if ($result1) {
-        header("location: ./clopage.php");
+        header("location: ./course.php");
     } else {
         echo "Failed";
     }

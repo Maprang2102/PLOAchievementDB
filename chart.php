@@ -16,7 +16,7 @@
     include './navbar.php';
     require('./connect_program.php');
     require('./select.php');
-    require('./chart_polar.php');
+    require('./chart_test.php');
     require('./chart_bar.php');
     ?>
     <div class="container">
@@ -63,7 +63,7 @@
 
                     // @$type = $_post['type_chart'];
                     if (isset($_POST['polarchart'])) {
-                        chart_polar();
+                        chart_radar();
                     } elseif (isset($_POST['barchart'])) {
                         chart_bar();
                     }

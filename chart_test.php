@@ -1,53 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <title>Document</title>
 </head>
 <body>
-
-<?php function chart_bar(){ 
-  $avg = [];
-    $max = [];
-    $min = [];
-    $j=0;
-    require('./connect_program.php');
-    $query = "SELECT DISTINCT `clo`.`clo_code`,`calculate_clo`.`clo_id` FROM calculate_clo LEFT JOIN clo ON `clo`.clo_id = `calculate_clo`.clo_id";
-    $sql = mysqli_query($connect, $query);
-    while ($row = mysqli_fetch_array($sql)) {
-      $assignment_number[] = "CLO".$row['clo_code'];
-      $clo_code = $row['clo_code'];
-      $clo_id = $row['clo_id'];
-      // echo "<hr>";
-      // $assign = "SELECT DISTINCT `calculate_clo`.`student_id` FROM `calculate_clo` WHERE clo_id = '$clo_id'";
-      // $ass = mysqli_query($connect, $assign);
-      // while ($ass1 = mysqli_fetch_array($ass)) {
-      //   $student_id = $ass1['student_id'];
-      // echo "<hr>";
-      $clo_weight = "SELECT DISTINCT SUM(clo_weight) AS sum_weight ,AVG(clo_weight+clo_weight) AS avg , MAX(clo_weight+clo_weight) AS max , MIN(clo_weight+clo_weight) AS min  FROM `calculate_clo` WHERE clo_id = '$clo_id' ";
-      $clo = mysqli_query($connect, $clo_weight);
-      while ($clo1 = mysqli_fetch_array($clo)) {
-        $sum_weight[$j] = number_format(($clo1['sum_weight']),4);
-        $avg[$j] = number_format(($clo1['avg']),4);
-        $max[$j] = number_format(($clo1['max']),4);
-        $min[$j] = number_format(($clo1['min']),4);
-        // echo "sum : " . number_format($sum_weight[$j], 4) . "<br>";
-        // echo "avg : " . $avg[$j] . " max : " . $max[$j] . " min : " . $min[$j]. "<hr>";
-        $j++;
-        // }
-      }
+<?php function chart_radar(){
+$avg = [];
+  $max = [];
+  $min = [];
+  $j=0;
+  require('./connect_program.php');
+  $query = "SELECT DISTINCT `clo`.`clo_code`,`calculate_clo`.`clo_id` FROM calculate_clo LEFT JOIN clo ON `clo`.clo_id = `calculate_clo`.clo_id";
+  $sql = mysqli_query($connect, $query);
+  while ($row = mysqli_fetch_array($sql)) {
+    $assignment_number[] = "CLO".$row['clo_code'];
+    $clo_code = $row['clo_code'];
+    $clo_id = $row['clo_id'];
+    // echo "<hr>";
+    // $assign = "SELECT DISTINCT `calculate_clo`.`student_id` FROM `calculate_clo` WHERE clo_id = '$clo_id'";
+    // $ass = mysqli_query($connect, $assign);
+    // while ($ass1 = mysqli_fetch_array($ass)) {
+    //   $student_id = $ass1['student_id'];
+    // echo "<hr>";
+    $clo_weight = "SELECT DISTINCT SUM(clo_weight) AS sum_weight ,AVG(clo_weight+clo_weight) AS avg , MAX(clo_weight+clo_weight) AS max , MIN(clo_weight+clo_weight) AS min  FROM `calculate_clo` WHERE clo_id = '$clo_id' ";
+    $clo = mysqli_query($connect, $clo_weight);
+    while ($clo1 = mysqli_fetch_array($clo)) {
+      $sum_weight[$j] = number_format(($clo1['sum_weight']),4);
+      $avg[$j] = number_format(($clo1['avg']),4);
+      $max[$j] = number_format(($clo1['max']),4);
+      $min[$j] = number_format(($clo1['min']),4);
+    //   echo "sum : " . number_format($sum_weight[$j], 4) . "<br>";
+    //   echo "avg : " . $avg[$j] . " max : " . $max[$j] . " min : " . $min[$j]. "<hr>";
+      $j++;
+      // }
     }
-  //   print_r($sum_weight);
-    // print_r($clo_weight);
-    $value_full = 0;
-    $value_max = 0;
-    $value_min = 0;
-    $value_avg = 0;
-    $i = 1;
-  ?>
+  }
+//   print_r($sum_weight);
+  // print_r($clo_weight);
+  $value_full = 0;
+  $value_max = 0;
+  $value_min = 0;
+  $value_avg = 0;
+  $i = 1;
+?>
+
+
 <div style="width: 1000px;">
   <canvas id="myChart"></canvas>
 </div>
@@ -58,7 +59,7 @@
   const data = {
     labels: labels,
     datasets: [{
-        type: 'bar',
+        type: 'radar',
     label: 'sum',
       data: <?php echo json_encode($sum_weight) ?>,
       backgroundColor: [
@@ -80,7 +81,7 @@
         // 'rgb(201, 203, 207)'
     //   ],
       borderWidth: 1},{
-        type: 'line',
+        type: 'radar',
       label: 'Maximum',
       data: <?php echo json_encode($max) ?>,
     //   backgroundColor: [
@@ -103,7 +104,7 @@
       ],
       borderWidth: 1
     },{
-        type: 'line',
+        type: 'radar',
     label: 'Minimum',
       data: <?php echo json_encode($min) ?>,
     //   backgroundColor: [
@@ -126,7 +127,7 @@
       ],
       borderWidth: 1},
       {
-        type: 'line',
+        type: 'radar',
     label: 'Average',
       data: <?php echo json_encode($avg) ?>,
     //   backgroundColor: [
@@ -168,12 +169,7 @@
     config
   );
 </script>
-  <?php } ?>
-  <!-- <script>
-    const myChart = new Chart(
-      document.getElementById('myChart1'),
-      config
-    );
-  </script> -->
+<?php } ?>
+
 </body>
 </html>

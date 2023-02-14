@@ -57,7 +57,7 @@ function input_CLO()
     <h4>CLO</h4>
     <form action="insertData_clo.php" method="POST">
         <div class="input-group mb-3">
-            <input type="hidden" class="form-control" name="course_id" value="<?php echo $pointer  ?> ">
+            <input type="hidden" class="form-control" name="course_id" value="<?php echo $_GET['course']  ?> ">
             <input type="text" class="form-control" placeholder="Number" name="clo_code">
             <input type="text" class="form-control" placeholder="Name Thai" name="clo_name">
             <input type="text" class="form-control" placeholder="Name Eng" name="clo_nameeng">

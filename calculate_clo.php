@@ -32,23 +32,23 @@ while ($ass = mysqli_fetch_array($fill_assign)) {
             $fill_weight = mysqli_query($connect, $tb_cal_weight);
             while ($weight = mysqli_fetch_array($fill_weight)) {
                 $clo_weight = $weight['clo_weight'];
-                echo "ass" . $assign_id . "std : " . $std_id  . " clo : " . $clo_id . "<br>";
-                echo $weight['clo_weight'] . "<br>";
+                // echo "ass" . $assign_id . "std : " . $std_id  . " clo : " . $clo_id . "<br>";
+                // echo $weight['clo_weight'] . "<br>";
                 $sum = $sum + $clo_weight;
             }
             $sumall[$std_id][$assign_id][$clo_id] = $sum;
             $sum = 0;
-            echo "<hr><hr>";
+            // echo "<hr><hr>";
             $i++;
         }
         // $clo_id_old = 0;
         $sum = 0;
     }
-    echo "<hr>";
+    // echo "<hr>";
     $j++;
 }
-print_r($sumall);
-echo $j . $i;
+// print_r($sumall);
+// echo $j . $i;
 
 
 //sum clo
@@ -66,8 +66,8 @@ while ($id = mysqli_fetch_array($fill_id)) {
             $clo_id01 = $clo_id['clo_id'];
             $std_id = $id['student_id'];
             $sum_all = $sumall[$std_id][$assign][$clo_id01] + $sum_all;
-            echo "<br>ary : " . $std_id . " : " . $assign . " : " . $clo_id01;
-            echo "<br>sum_all : " . $sum_all;
+            // echo "<br>ary : " . $std_id . " : " . $assign . " : " . $clo_id01;
+            // echo "<br>sum_all : " . $sum_all;
         }
         $assign_id1 = $ass1['assign_id'];
         $ary_sum[$id['student_id']][$assign] = $sum_all;
@@ -76,9 +76,9 @@ while ($id = mysqli_fetch_array($fill_id)) {
         $b = 0;
         while ($clo_id1 = mysqli_fetch_array($fill_clo_id)) {
             $clo_id = $clo_id1['clo_id'];
-            echo $clo_id;
+            // echo $clo_id;
             $final_sum = $sumall[$std_id][$assign][$clo_id] / $ary_sum[$id['student_id']][$assign];
-            echo "<br>final_sum : "  . number_format($final_sum, 4);
+            // echo "<br>final_sum : "  . number_format($final_sum, 4);
             $b++;
             $check = mysqli_query($connect, "SELECT * FROM `calculate_clo` WHERE student_id='$std_id' AND assign_id='$assign' AND clo_id='$clo_id' ");
             while ($check_table = mysqli_fetch_array($check)) {
@@ -94,7 +94,7 @@ while ($id = mysqli_fetch_array($fill_id)) {
         
     }
 }
-print_r($final_sum);
+// print_r($final_sum);
 //keep in ary 
 //sum_all array
 //sum/sumall array

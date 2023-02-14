@@ -144,6 +144,8 @@ function table_clo()
     $count_clo = 0;
     $count_plo = 0;
     $count_radio = 0;
+    $count_weight = 0;
+    $check = 0;
     require('./connect_program.php') ?>
     <style>
         table,
@@ -228,7 +230,7 @@ function table_clo()
                         ?>
                             <td style="text-align:center">
                                 <input type="radio" name="rdo<?php echo $clo['clo_id'] ?>" id="rdoTestClo<?php echo $count_clo . $count_plo ?>" value="<?php echo $plo['plo_id'] ?>" <?php if (isset($radio_value) && $radio_value ==  'yes') : ?>checked='checked' <?php endif; ?>>
-                                <input type="hidden" name="course_id" value="<?php echo $pointer ?>">
+                                <input type="hidden" name="course_id" value="<?php echo $course ?>">
                                 <input type="hidden" name="plo_id" value="<?php echo $plo['plo_id'] ?>">
                                 <input type="hidden" name="count" value="<?php echo $count_clo ?>">
                                 <input type="hidden" name="year" value="<?php echo $_GET['year']  ?> ">
@@ -244,7 +246,7 @@ function table_clo()
                             echo '</script>';
                             $radio_value = 'no';
                         }
-                        
+                        echo $count_weight ;
                         $count_plo = 0;
                         ?><td style="text-align:center;">
                         <?php
@@ -253,10 +255,15 @@ function table_clo()
                         while ($show_pclo1 = mysqli_fetch_array($plo_clo)) {
                         ?>
                         
-                        <input type="text" name="txtweight" value="<?php echo $show_pclo1['weight'] ?>" style="width: 35px;margin-left:5px">
+                        <input type="text" name="txtweight<?php echo $count_weight  ?>" value="<?php echo $show_pclo1['weight'] ?>" style="width: 35px;margin-left:5px">
                         
-                        <?php } 
-                        $clo_id = 0; ?></td>
+                        <?php $check=1; } 
+                        if($check==0){ ?>
+                            <input type="text" name="txtweight<?php echo $count_weight  ?>" style="width: 35px;margin-left:5px">
+                        <?php }
+                        $count_weight++;
+                        $clo_id = 0;
+                        $check = 0; ?></td>
                     </tr>
                 </tbody>
 

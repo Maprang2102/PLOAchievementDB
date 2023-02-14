@@ -70,7 +70,7 @@ while ($assign_std = mysqli_fetch_array($assign)) {
         $clo_weight_std = $ary_weight[$m][$n] * $score;
         echo  $std_id . $m . $n . "=" . $ary_score[$std_id][$m][$n] . "<br>";
         $n++;
-        $check = mysqli_query($connect, "SELECT * FROM `calculate` ");
+        $check = mysqli_query($connect, "SELECT * FROM calculate WHERE student_id='$std_id' AND clo_id='$clo_id_std' AND sub_assign_id='$sub_assign_std'");
         while ($check_table = mysqli_fetch_array($check)) {
           $weight_clo = "UPDATE calculate SET clo_weight='$clo_weight_std' WHERE student_id='$std_id' AND clo_id='$clo_id_std' AND sub_assign_id='$sub_assign_std'";
           $num_check = 1;
@@ -84,6 +84,7 @@ while ($assign_std = mysqli_fetch_array($assign)) {
       
       $num_check = 0;
       $m++;
+      require('./calculate_clo.php');
     }
   }
   // print_r($ary_score);
