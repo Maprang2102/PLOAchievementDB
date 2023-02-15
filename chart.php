@@ -62,7 +62,7 @@
                     // $group_number 
 
                     // @$type = $_post['type_chart'];
-                    if (isset($_POST['polarchart'])) {
+                    if (isset($_POST['polarchart'])&&$group==2) {
                         chart_radar();
                     } elseif (isset($_POST['barchart'])) {
                         chart_bar();

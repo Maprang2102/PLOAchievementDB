@@ -11,7 +11,7 @@ $num_check = 0;
 while ($plo = mysqli_fetch_array($fill_plo)) {
     $plo_id = $plo['plo_id'];
     $clo_id = $plo['clo_id'];
-    
+    $weight_plo = $plo['weight'];
     $tb_cal_clo_calclo = "SELECT DISTINCT student_id FROM calculate_clo WHERE clo_id = '$clo_id'";
     $fill_clo = mysqli_query($connect, $tb_cal_clo_calclo);
     while ($clo = mysqli_fetch_array($fill_clo)) {
@@ -20,10 +20,9 @@ while ($plo = mysqli_fetch_array($fill_plo)) {
         while ($std = mysqli_fetch_array($fill_std)) {
             $clo_weight = $std['clo_weight'];
             $sum_weight = $clo_weight + $sum_weight;
-            $weight_plo = $plo['weight'];
-        }
-        $temporary = number_format($sum_weight * ($weight_plo / 100), 4);
-        // echo $temporary."<br>";
+        }$tem = $weight_plo;
+        $temporary = number_format($sum_weight * ((int)$tem / 100), 4);
+        echo $temporary;
         $check = mysqli_query($connect, "SELECT * FROM `calculate_plo` WHERE student_id='$std_id' AND plo_id='$plo_id'");
         while ($check_table = mysqli_fetch_array($check)) {
             $weight_plo = "UPDATE calculate_plo SET plo_weight='$temporary' WHERE student_id='$std_id' AND plo_id='$plo_id'";
@@ -32,18 +31,10 @@ while ($plo = mysqli_fetch_array($fill_plo)) {
         if ($num_check == 0) {
             $weight_plo = "INSERT INTO calculate_plo(student_id,plo_id,plo_weight) VALUE('$std_id','$plo_id','$temporary')";
         }
-        // $product_plo[$std_id][$clo_id] = $temporary;
-        // $sum_weight = 0;
-        // $sum_all = $sum_all + $product_plo[$std_id][$clo_id];
-        // echo "plo : ".$plo_id." clo : ".$clo_id." std : ".$std_id." sum : ".$sum_all."<br>";
-        $result = mysqli_query($connect, $weight_plo);
-        // if($result){
-        //     echo "<hr>";
-        // }
-        $num_check = 0;
     }
     
-        
+        // $result = mysqli_query($connect, $weight_plo);
+        $num_check = 0;
 }
 // echo print_r($product_plo);
 // echo "<br>" . $sum_all;
