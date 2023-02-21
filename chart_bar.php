@@ -14,8 +14,12 @@
     $max = [];
     $min = [];
     $j=0;
+    $course = $_GET['course'];
+    $section = $_GET['section'];
+    $semester = $_GET['semester'];
+    $year = $_GET['year'];
     require('./connect_program.php');
-    $query = "SELECT DISTINCT `clo`.`clo_code`,`calculate_clo`.`clo_id` FROM calculate_clo LEFT JOIN clo ON `clo`.clo_id = `calculate_clo`.clo_id";
+    $query = "SELECT DISTINCT `clo`.`clo_code`,`calculate_clo`.`clo_id` FROM `calculate_clo` LEFT JOIN clo ON `clo`.`clo_id` = `calculate_clo`.`clo_id` LEFT JOIN `course_clo` ON `clo`.`clo_id` = `course_clo`.`clo_id` WHERE `course_id` = '$course' AND `section_id` = '$section' AND `semester_id` = '$semester' AND `year_str` = '$year'";
     $sql = mysqli_query($connect, $query);
     while ($row = mysqli_fetch_array($sql)) {
       $assignment_number[] = "CLO".$row['clo_code'];

@@ -12,10 +12,10 @@
 <body>
 
     <?php 
-    // function chart_bar()
-    // {
+    function chart_radar_plo()
+    {
         require('./connect_program.php');
-        $program = "1234";
+        $program = $_GET['program_id'];
         $i = 0;
         $final = 0;
         $tb_cal_plo = "SELECT DISTINCT `calculate_plo`.`plo_id` FROM `calculate_plo` LEFT JOIN `plo_clo`ON `calculate_plo`.`plo_id` = `plo_clo`.`plo_id` LEFT JOIN `program_plo`  ON `plo_clo`.`plo_id` = `program_plo`.`plo_id` WHERE `program_id` = '$program'";
@@ -25,13 +25,14 @@
             $fill_plo = mysqli_query($connect,"SELECT SUM(plo_weight) AS plo_weight FROM calculate_plo ");
             while ($sum_plo = mysqli_fetch_array($fill_plo)) {
                 $sum_weight = $sum_plo['plo_weight'];
-                echo "<hr>";
+                // echo "<hr>";
                 $fill_weight = mysqli_query($connect,"SELECT DISTINCT plo_weight FROM calculate_plo WHERE plo_id = '$count_plo_id' ");
                 while ($weight = mysqli_fetch_array($fill_weight)) {
                     $plo_weight = $weight['plo_weight'];
                     $final = number_format((($plo_weight/$sum_weight)+$final),4);
                     
-                }echo "plo : ".$count_plo_id." plo : ".$plo_weight." sum : ".$sum_weight." final : ".$final."<br>";
+                }
+                // echo "plo : ".$count_plo_id." plo : ".$plo_weight." sum : ".$sum_weight." final : ".$final."<br>";
                 $final_sum[$i] = $final;
                 $final = 0;
             }
@@ -153,7 +154,7 @@
                 config
             );
         </script>
-    <?php //} ?>
+    <?php } ?>
     <!-- <script>
     const myChart = new Chart(
       document.getElementById('myChart1'),

@@ -21,6 +21,7 @@
 <body>
     <?php
     session_start();
+    // require('./login_sql.php');
     $role_all = ["admin", "advisor", "student"];
     require "./session.php";
     ?>

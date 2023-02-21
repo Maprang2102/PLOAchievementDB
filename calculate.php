@@ -39,19 +39,19 @@ $sum = 0;
 $num_check = 0;
 $ary_score = [];
 $ary_std_id = [];
-$assign_id_query = "SELECT distinct assign_id FROM clo_assignment ";
+$assign_id_query = "SELECT DISTINCT assign_id FROM clo_assignment ";
 $assign = mysqli_query($connect, $assign_id_query);
 while ($assign_std = mysqli_fetch_array($assign)) {
   $assign_id_std = $assign_std['assign_id'];
   echo "assign_id : " . $assign_id_std . "<br>";
-  $student = "SELECT distinct student_id FROM student_sub_assign_score ";
+  $student = "SELECT DISTINCT student_id FROM student_sub_assign_score ";
   $sql_std = mysqli_query($connect, $student);
   while ($row1_std = mysqli_fetch_array($sql_std)) {
     $m = 0;
     $std_id = $row1_std['student_id'];
     $ary_std_id[] = $std_id;
     echo $std_id . "<br>";
-    $fill_assign = "SELECT distinct sub_assign_id FROM clo_assignment WHERE assign_id = '$assign_id_std'";
+    $fill_assign = "SELECT DISTINCT sub_assign_id FROM clo_assignment WHERE assign_id = '$assign_id_std'";
     $sql_sum_weigth_std = mysqli_query($connect, $fill_assign);
     while ($row_std = mysqli_fetch_array($sql_sum_weigth_std)) {
       $sub_assign_std = $row_std['sub_assign_id'];
@@ -84,7 +84,7 @@ while ($assign_std = mysqli_fetch_array($assign)) {
       
       $num_check = 0;
       $m++;
-      require('./calculate_clo.php');
+      
     }
   }
   // print_r($ary_score);
@@ -99,7 +99,8 @@ while ($assign_std = mysqli_fetch_array($assign)) {
   //   }
   // }
   // print_r($sum_all);
-}
+}require('./calculate_clo.php');
+      require('./calculate_plo.php');
 //หาผลรวมของ sum_all 
 //เอา sum_all มาหารกับผลรวม = clo
 //เอา clo มาคูณกับ weight_plo แล้วหาผลรวม

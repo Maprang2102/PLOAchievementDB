@@ -113,7 +113,7 @@ function select_program()
     Where `program_course`.`section_id`  ='$section_id' ";
     $sql_semester = mysqli_query($connect, $query_semester);
 
-    $query_year =  "SELECT year_str FROM program_course WHERE program_id='$program_id'";
+    $query_year =  "SELECT year_str FROM program_course WHERE course_id='$course_id'";
     $sql_year = mysqli_query($connect, $query_year);
 
      ?>

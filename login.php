@@ -27,20 +27,20 @@
                 <br>
                 <h2>Login</h2>
                     <br>
-                    <form>
+                    <form action="login_sql.php" method="post" >
                         <div class="row mb-3">
                             <label for="inputEmail3" class="col-sm-2 col-form-label">Username</label>
                             <div class="col-sm-10">
-                                <input type="email" class="form-control" id="inputEmail3">
+                                <input type="text" class="form-control" id="inputEmail3" name="user_login" >
                             </div>
                         </div>
                         <div class="row mb-3">
                             <label for="inputPassword3" class="col-sm-2 col-form-label">Password</label>
                             <div class="col-sm-10">
-                                <input type="password" class="form-control" id="inputPassword3">
+                                <input type="password" class="form-control" id="inputPassword3" name="pass_login" >
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary">Sign in</button>
+                        <button type="submit" class="btn btn-primary" name="signin" >Sign in</button>
                     </form>
                     <br>
                 </div>
@@ -48,26 +48,26 @@
                 <br>
                 <h2>Register</h2>
                     <br>
-                    <form>
+                    <form method="POST" action="login_sql.php">
                         <div class="row mb-3">
                             <label for="inputEmail3" class="col-sm-2 col-form-label">Username</label>
                             <div class="col-sm-10">
-                                <input type="email" class="form-control" id="inputEmail3">
+                                <input type="text" class="form-control" id="inputEmail3" name="user_regis" >
                             </div>
                         </div>
                         <div class="row mb-3">
                             <label for="inputEmail3" class="col-sm-2 col-form-label">ID</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" id="inputEmail3">
+                                <input type="text" class="form-control" id="inputEmail3" name="id_regis" >
                             </div>
                         </div>
                         <div class="row mb-3">
                             <label for="inputPassword3" class="col-sm-2 col-form-label">Password</label>
                             <div class="col-sm-10">
-                                <input type="password" class="form-control" id="inputPassword3">
+                                <input type="password" class="form-control" id="inputPassword3" name="pass_regis" >
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary">Sign up</button>
+                        <button type="submit" class="btn btn-primary" name="signup" >Sign up</button>
                     </form>
                     <br>
                 </div>

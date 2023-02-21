@@ -23,7 +23,7 @@ while ($plo = mysqli_fetch_array($fill_plo)) {
             $weight_plo = $plo['weight'];
         }
         $temporary = number_format($sum_weight * ($weight_plo / 100), 4);
-        // echo $temporary."<br>";
+        echo $temporary."<br>";
         $check = mysqli_query($connect, "SELECT * FROM `calculate_plo` WHERE student_id='$std_id' AND plo_id='$plo_id'");
         while ($check_table = mysqli_fetch_array($check)) {
             $weight_plo = "UPDATE calculate_plo SET plo_weight='$temporary' WHERE student_id='$std_id' AND plo_id='$plo_id'";

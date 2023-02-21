@@ -246,7 +246,7 @@ function table_clo()
                             echo '</script>';
                             $radio_value = 'no';
                         }
-                        echo $count_weight ;
+                        // echo $count_weight ;
                         $count_plo = 0;
                         ?><td style="text-align:center;">
                         <?php
