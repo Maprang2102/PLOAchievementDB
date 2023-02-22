@@ -49,7 +49,7 @@ function input_PLO()
 function input_CLO()
 {
     $pointer = @$_GET['year'];
-    require('./connect_program.php'); 
+    require('./connect_program.php');
     $table = "SELECT `clo`.`clo_name`,`clo`.`clo_code`,`clo`.`clo_id`  FROM `course_clo` 
     LEFT JOIN  `clo`  
     ON   `clo`.clo_id = `course_clo`.clo_id 
@@ -157,6 +157,7 @@ function input_test($pointer, $table, $sub_table, $insertData, $show, $show_id, 
             <input type="text" class="form-control" placeholder="<?php echo 'กรุณากรอกข้อมูล ' . $show ?>" name="<?php echo $show_name1 ?>">
             <button class="btn btn-outline-primary" type="submit" value="Submit" name="btnAdd">Add</button>
         </div>
+    <h4>Edit</h4>
         <div class="input-group mb-3">
             <select class="form-select" onchange="location = this.value;">
                 <option value="">เลือกข้อ</option>
@@ -179,40 +180,70 @@ function input_test($pointer, $table, $sub_table, $insertData, $show, $show_id, 
 
 <?php }
 function importfile()
-{ ?>
+{ ?> 
     <h4> อัปโหลดไฟล์ Excel </h4>
+    <form method="post" id="load_excel_form" enctype="multipart/form-data">
     <div class="input-group mb-3">
-        <input type="file" class="form-control" id="inputGroupFile02">
+        <input type="file" class="form-control" name="select_excel">
         <label class="input-group-text" for="inputGroupFile02">Upload</label>
+        <input type="submit" name="load" class="btn btn-outline-primary">
     </div>
+    </form>
+    <div id="excel_area" style="overflow:auto"></div>
+    
+    <hr>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#load_excel_form').on('submit', function(event) {
+                event.preventDefault();
+                $.ajax({
+                    url: "upload.php",
+                    method: "POST",
+                    data: new FormData(this),
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+                    success: function(data) {
+                        $('#excel_area').html(data);
+                        $('table').css('width', '100%');
+                    }
+                })
+            });
+        });
+    </script>
+    <form>
+    <button class="btn btn-outline-primary">Submit</button>
+    </form>
+<?php
+}
+function add_student()
+{
+    require('./connect_program.php');
+    $select = '';
+?>
+    <h4>เพิ่มนิสิต</h4>
+    <form action="add_student_course_sql.php" method="POST">
+        <div class="input-group mb-3">
+            <select class="form-select" name="student_id">
+                <option value="">เลือกนิสิต</option>
+                <?php $program = $_GET['program_id'];
+                $query = "SELECT * FROM student WHERE program_id='$program' ";
+                $sql = mysqli_query($connect, $query);
+                while ($row = mysqli_fetch_array($sql)) {
+                ?>
+                    <option value="<?php echo $row["student_id"]; ?> "><?php echo $row["fname"] . " " . $row["lname"]; ?></option>
+                <?php } ?>
+            </select>
+            <input type="hidden" name="course" value="<?php echo $_GET["course"] ?>">
+            <input type="hidden" name="semester" value="<?php echo $_GET["semester"] ?>">
+            <input type="hidden" name="section" value="<?php echo $_GET["section"] ?>">
+            <input type="hidden" name="year" value="<?php echo $_GET["year"] ?>">
+            <button class="btn btn-outline-primary" type="submit" value="Submit" name="btnAdd">Add</button>
+        </div>
+    </form>
     <hr>
 <?php
 }
-function add_student(){ 
-    require('./connect_program.php');
-    $select = '';
-    ?>
-    <h4>เพิ่มนิสิต</h4>
-    <form action="add_student_course_sql.php" method="POST">
-    <div class="input-group mb-3">
-        <select class="form-select" name="student_id">
-            <option value="">เลือกนิสิต</option>
-            <?php $program = $_GET['program_id'];
-            $query = "SELECT * FROM student WHERE program_id='$program' ";
-            $sql = mysqli_query($connect, $query);
-            while ($row = mysqli_fetch_array($sql)) {
-            ?>
-                <option value="<?php echo $row["student_id"]; ?> "><?php echo $row["fname"]." ".$row["lname"]; ?></option>
-            <?php } ?>
-        </select>
-        <input type="hidden" name="course" value="<?php echo $_GET["course"]?>">
-        <input type="hidden" name="semester" value="<?php echo $_GET["semester"]?>">
-        <input type="hidden" name="section" value="<?php echo $_GET["section"]?>">
-        <input type="hidden" name="year" value="<?php echo $_GET["year"]?>">
-        <button class="btn btn-outline-primary" type="submit" value="Submit" name="btnAdd">Add</button>
-    </div>
-</form>
-<hr>
-<?php
-} 
 ?>

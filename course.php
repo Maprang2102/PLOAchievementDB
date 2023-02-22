@@ -52,6 +52,7 @@
             <?php select_course_section(); ?>
         </div>
     </div>
+    <?php if(isset($_GET['year'])){ ?>
     <div class="container">
         <div class="box">
             <form method="post" style="justify-content: flex-end; display: flex;">
@@ -92,7 +93,7 @@
         } ?>
             </div>
         </div>
-
+<?php } ?>
 </body>
 
 </html>
