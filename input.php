@@ -185,9 +185,8 @@ function importfile()
     <form method="post" id="load_excel_form" enctype="multipart/form-data">
     <div class="input-group mb-3">
         <input type="file" class="form-control" name="select_excel">
-        <label class="input-group-text" for="inputGroupFile02">Upload</label>
-        <input type="submit" name="load" class="btn btn-outline-primary">
-        <button class="btn btn-outline-primary">ส่งข้อมูล</button>
+        <button type="submit" name="load" class="btn btn-outline-primary">Upload</button>
+        <button class="btn btn-outline-primary" type="submit">ส่งข้อมูล</button>
     </div>
     </form>
     <div id="excel_area" style="overflow:auto"></div>
