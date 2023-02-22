@@ -187,6 +187,7 @@ function importfile()
         <input type="file" class="form-control" name="select_excel">
         <label class="input-group-text" for="inputGroupFile02">Upload</label>
         <input type="submit" name="load" class="btn btn-outline-primary">
+        <button class="btn btn-outline-primary">ส่งข้อมูล</button>
     </div>
     </form>
     <div id="excel_area" style="overflow:auto"></div>
@@ -214,7 +215,7 @@ function importfile()
         });
     </script>
     <form>
-    <button class="btn btn-outline-primary">Submit</button>
+    
     </form>
 <?php
 }
