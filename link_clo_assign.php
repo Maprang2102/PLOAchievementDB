@@ -2,6 +2,11 @@
 require('./connect_program.php');
 if (isset($_POST['btnSubmit'])) {
     $count_txt = $_POST['count_txt'];
+    $course_id = $_POST['course_id'];
+    $clo_year = $_POST['clo_year'];
+    $semester = $_POST['semester'];
+    $section = $_POST['section'];
+    $program_id = $_POST['program_id'];
     for ($i = 0; $i <= $count_txt; $i++) {
         $txt = "txtweight$i";
         $weight = "weight_old$i";
@@ -21,7 +26,7 @@ if (isset($_POST['btnSubmit'])) {
             }
             $result = mysqli_query($connect, $clo_assignment);
             if ($result) {
-                header("location: ./assignment.php");
+                header("location: ./assignment.php?program_id=".$program_id."&course=".$course_id."&section=".$section."&semester=".$semester."&year=".$clo_year);
             } else {
                 echo "Failed";
             }

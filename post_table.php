@@ -4,6 +4,7 @@ if (isset($_POST['btnSubmit'])) {
     $check_update = 0;
     $count = 0;
     $course_id = $_POST['course_id'];
+    $program_id = $_POST['program_id'];
     $year = $_POST['year'];
     $semester = $_POST['semester'];
     $section = $_POST['section'];
@@ -36,7 +37,7 @@ if (isset($_POST['btnSubmit'])) {
         
     }
     if ($result) {
-            header("location: ./course.php");
+            header("location: ./course.php?program_id=".$program_id."&course=".$course_id."&section=".$section."&semester=".$semester."&year=".$year);
         } else {
             echo "Failed";
         }

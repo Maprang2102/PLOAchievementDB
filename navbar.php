@@ -22,7 +22,7 @@
     <?php
     session_start();
     // require('./login_sql.php');
-    $role_all = ["admin", "advisor", "student"];
+    $role_all = [ "advisor", "student"];
     require "./session.php";
     ?>
     <nav class="sidebar close">

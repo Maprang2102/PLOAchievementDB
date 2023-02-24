@@ -56,14 +56,14 @@ function select_course()
 <?php
 function select_program()
 {
-    @$id = $_GET['program_id'];
+    @$program_id = $_GET['program_id'];
     require('./connect_program.php');
     $query = "SELECT * FROM program ";
-    $lock_id = "SELECT * FROM program WHERE program_id = '$id'";
+    $lock_id = "SELECT * FROM program WHERE program_id = '$program_id'";
     $sql_lock = mysqli_query($connect, $lock_id);
     $sql = mysqli_query($connect, $query);
 
-    if ($id) {
+    if ($program_id) {
         while ($row = mysqli_fetch_array($sql_lock)) {
             echo "หลักสูตร : " . $row['program_name'] . "";
         }
@@ -75,7 +75,7 @@ function select_program()
         <option value="">เลือกหลักสูตร</option>
         <?php while ($row = mysqli_fetch_array($sql)) {
         ?>
-            <option value="?program_id=<?php echo $row["program_id"]; ?> "><?php echo $row["program_name"]; ?></option>
+            <option value="?program_id=<?php echo $row["program_id"]; ?> " <?php if($row["program_id"] === $program_id) echo 'selected'?>><?php echo $row["program_name"]; ?></option>
         <?php } ?>
     </select>
 <?php 
@@ -124,7 +124,7 @@ function select_program()
                 <option value="">เลือกหลักสูตร</option>
                 <?php while ($row = mysqli_fetch_array($sql)) {
                 ?>
-                    <option value="?program_id=<?php echo $row["program_id"]; ?> "><?php echo $row["program_name"]; ?></option>
+                    <option value="?program_id=<?php echo $row["program_id"]; ?> " <?php if($row["program_id"] === $program_id) echo 'selected'?> ><?php echo $row["program_name"]; ?></option>
                 <?php } ?>
             </select>
         </div>
@@ -137,7 +137,7 @@ function select_program()
                 <?php @$program_id = $_GET['program_id'];
                 while ($row = mysqli_fetch_array($sql_course)) {
                 ?>
-                    <option value="?program_id=<?php echo $program_id; ?>&course=<?php echo $row["course_id"]; ?>"><?php echo $row["course_name"]; ?></option>
+                    <option value="?program_id=<?php echo $program_id; ?>&course=<?php echo $row["course_id"]; ?>" <?php if($row["course_id"] === $course_id) echo 'selected'?> ><?php echo $row["course_name"]; ?></option>
                 <?php } ?>
             </select>
         </div>
@@ -146,7 +146,7 @@ function select_program()
                 <option>เลือกกลุ่มเรียน</option>
                 <?php 
                 while ($row = mysqli_fetch_array($sql_section)) { ?>
-                    <option value="?program_id=<?php echo $program_id; ?>&course=<?php echo $course_id ?>&section=<?php echo $row["section_id"]; ?>"><?php echo $row["section_name"]; ?></option>
+                    <option value="?program_id=<?php echo $program_id; ?>&course=<?php echo $course_id ?>&section=<?php echo $row["section_id"]; ?>" <?php if($row["section_id"] === $section_id) echo 'selected'?> ><?php echo $row["section_name"]; ?></option>
                 <?php } ?>
                 <!-- <option value="chart.php?group=2">รายวิชา</option> -->
             </select>
@@ -156,7 +156,7 @@ function select_program()
                 <option>เลือกภาคเรียน</option>
                 <?php 
                 while ($row = mysqli_fetch_array($sql_semester)) { ?>
-                    <option value="?program_id=<?php echo $program_id; ?>&course=<?php echo $course_id ?>&section=<?php echo $section_id ; ?>&semester=<?php echo $row["semester_id"]; ?>"><?php echo $row["semester_name"]; ?></option>
+                    <option value="?program_id=<?php echo $program_id; ?>&course=<?php echo $course_id ?>&section=<?php echo $section_id ; ?>&semester=<?php echo $row["semester_id"]; ?>" <?php if($row["semester_id"] === $semester) echo 'selected'?>><?php echo $row["semester_name"]; ?></option>
                 <?php } ?>
                 <!-- <option value="chart.php?group=2">รายวิชา</option> -->
             </select>
@@ -166,7 +166,7 @@ function select_program()
                 <option>เลือกปีการศึกษา</option>
                 <?php 
                 while ($row = mysqli_fetch_array($sql_year)) { ?>
-                    <option value="?program_id=<?php echo $program_id; ?>&course=<?php echo $course_id ?>&section=<?php echo $section_id ; ?>&semester=<?php echo $semester;?>&year=<?php echo $row['year_str'];?>"><?php echo $row["year_str"]; ?></option>
+                    <option value="?program_id=<?php echo $program_id; ?>&course=<?php echo $course_id ?>&section=<?php echo $section_id ; ?>&semester=<?php echo $semester;?>&year=<?php echo $row['year_str'];?>" <?php if($row["year_str"] === $year) echo 'selected'?>><?php echo $row["year_str"]; ?></option>
                 <?php } ?>
                 <!-- <option value="chart.php?group=2">รายวิชา</option> -->
             </select>
@@ -177,10 +177,10 @@ function select_program()
 
 function select_program_showchart()
 {
-    @$id = $_GET['program_id'];
+    @$program_id = $_GET['program_id'];
     require('./connect_program.php');
     $query = "SELECT * FROM program ";
-    $lock_id = "SELECT * FROM program WHERE program_id = '$id'";
+    $lock_id = "SELECT * FROM program WHERE program_id = '$program_id'";
     $sql_lock = mysqli_query($connect, $lock_id);
     $sql = mysqli_query($connect, $query);
 
@@ -196,7 +196,7 @@ function select_program_showchart()
         <option value="">เลือกหลักสูตร</option>
         <?php while ($row = mysqli_fetch_array($sql)) {
         ?>
-            <option value="?group=<?php echo $_GET['group'] ?>&program_id=<?php echo $row["program_id"]; ?> "><?php echo $row["program_name"]; ?></option>
+            <option value="?group=<?php echo $_GET['group'] ?>&program_id=<?php echo $row["program_id"]; ?> " <?php if($row["program_id"] === $program_id) echo 'selected'?>><?php echo $row["program_name"]; ?></option>
         <?php } ?>
     </select>
 <?php 
@@ -242,7 +242,7 @@ function select_program_showchart()
                 <?php 
                 while ($row = mysqli_fetch_array($sql_course)) {
                 ?>
-                    <option value="?group=<?php echo $_GET['group'] ?>&course=<?php echo $row["course_id"]; ?>"><?php echo $row["course_name"]; ?></option>
+                    <option value="?group=<?php echo $_GET['group'] ?>&course=<?php echo $row["course_id"]; ?>" <?php if($row["course_id"] === $course_id) echo 'selected'?>><?php echo $row["course_name"]; ?></option>
                 <?php } ?>
             </select>
         </div>
@@ -251,7 +251,7 @@ function select_program_showchart()
                 <option>เลือกกลุ่มเรียน</option>
                 <?php 
                 while ($row = mysqli_fetch_array($sql_section)) { ?>
-                    <option value="?group=<?php echo $_GET['group'] ?>&course=<?php echo $course_id ?>&section=<?php echo $row["section_id"]; ?>"><?php echo $row["section_name"]; ?></option>
+                    <option value="?group=<?php echo $_GET['group'] ?>&course=<?php echo $course_id ?>&section=<?php echo $row["section_id"]; ?>" <?php if($row["section_id"] === $section_id) echo 'selected'?>><?php echo $row["section_name"]; ?></option>
                 <?php } ?>
                 <!-- <option value="chart.php?group=2">รายวิชา</option> -->
             </select>
@@ -261,7 +261,7 @@ function select_program_showchart()
                 <option>เลือกภาคเรียน</option>
                 <?php 
                 while ($row = mysqli_fetch_array($sql_semester)) { ?>
-                    <option value="?group=<?php echo $_GET['group'] ?>&course=<?php echo $course_id ?>&section=<?php echo $section_id ; ?>&semester=<?php echo $row["semester_id"]; ?>"><?php echo $row["semester_name"]; ?></option>
+                    <option value="?group=<?php echo $_GET['group'] ?>&course=<?php echo $course_id ?>&section=<?php echo $section_id ; ?>&semester=<?php echo $row["semester_id"]; ?>" <?php if($row["semester_id"] === $semester) echo 'selected'?>><?php echo $row["semester_name"]; ?></option>
                 <?php } ?>
                 <!-- <option value="chart.php?group=2">รายวิชา</option> -->
             </select>
@@ -271,7 +271,7 @@ function select_program_showchart()
                 <option>เลือกปีการศึกษา</option>
                 <?php 
                 while ($row = mysqli_fetch_array($sql_year)) { ?>
-                    <option value="?group=<?php echo $_GET['group'] ?>&course=<?php echo $course_id ?>&section=<?php echo $section_id ; ?>&semester=<?php echo $semester;?>&year=<?php echo $row['year_str'];?>"><?php echo $row["year_str"]; ?></option>
+                    <option value="?group=<?php echo $_GET['group'] ?>&course=<?php echo $course_id ?>&section=<?php echo $section_id ; ?>&semester=<?php echo $semester;?>&year=<?php echo $row['year_str'];?>" <?php if($row["year_str"] === $year) echo 'selected'?>><?php echo $row["year_str"]; ?></option>
                 <?php } ?>
                 <!-- <option value="chart.php?group=2">รายวิชา</option> -->
             </select>

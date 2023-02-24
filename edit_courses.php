@@ -20,6 +20,7 @@ require("navbar.php");
     <div class="box">
       <h3>Add Edit Delete Courses</h3>
       <hr>
+      <h5>Add Courses</h5>
       <form method="POST" action="edit_courses_sql.php">
         <div class="input-group mb-3">
         <select class="form-select" name="selectPro">
@@ -48,6 +49,7 @@ require("navbar.php");
           <button class="btn btn-outline-primary" type="submit" value="Submit" name="btnSubmit">Insert</button>
         </div>
         <hr>
+        <h5>Edit Courses</h5>
         <div class="input-group mb-3">
           <select class="form-select" onchange="location = this.value;">
             <option value="">เลือกรายวิชา</option>
@@ -69,9 +71,9 @@ require("navbar.php");
         <table id="user_data" style='width:100%;' class="table table-hover ">
           <thead>
             <tr>
-              <th style='width:15%;'>Program ID</th>
-              <th style='width:35%;'>Program</th>
-              <th style='width:25%;'>Year</th>
+              <th style='width:15%;'>Course ID</th>
+              <th style='width:35%;'>Name Thai</th>
+              <th style='width:25%;'>Name Eng</th>
               <th style='width:15%;'></th>
             </tr>
           </thead>

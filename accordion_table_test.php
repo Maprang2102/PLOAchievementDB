@@ -18,6 +18,11 @@ function accordion_table()
     require('./connect_program.php');
     $pointer = @$_GET['course'];
     $year = @$_GET['year'];
+    @$program_id = $_GET['program_id'];
+    @$course = $_GET['course'];
+    @$section = $_GET['section'];
+    @$semester = $_GET['semester'];
+    @$year = $_GET['year'];
     $i = 0;
     $count_txt = 0;
     $count_loop = 1;
@@ -37,6 +42,7 @@ function accordion_table()
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
                                 <h5><?php echo $assign1['assign_name']; ?>
                                     <input type="hidden" name="assign_id" value="<?php echo $assign1['assign_id'] ?>">
+                                    <?php echo "[".$assign1['full_score']."]" ?>
                                 </h5>
                             </button>
                         </h3>
@@ -86,6 +92,11 @@ function accordion_table()
                                                             <input type="hidden" name="sub_assign_id<?php echo  $count_txt ?>" value="<?php echo  $subassign1['sub_assign_id'] ?>">
                                                             <input type="hidden" name="assign_id<?php echo  $count_txt ?>" value="<?php echo  $subassign1['assign_id'] ?>">
                                                             <input type="hidden" name="count_txt" value="<?php echo  $count_txt ?>">
+                                                            <input type="hidden" class="form-control" placeholder="Year" name="clo_year" value="<?php echo $year  ?> ">
+                                                            <input type="hidden" class="form-control" placeholder="Semester" name="semester" value="<?php echo $semester ?>">
+                                                            <input type="hidden" class="form-control" placeholder="Section" name="section" value="<?php echo $section  ?>">
+                                                            <input type="hidden" class="form-control" name="program_id" value="<?php echo $program_id ?>">
+                                                            <input type="hidden" class="form-control" name="course_id" value="<?php echo $course ?> ">
                                                         </td>
 
                                                     <?php $weight_clo_assign = "";
@@ -115,7 +126,8 @@ function accordion_table()
                     <div class="accordion-item">
                         <h3 class="accordion-header" id="heading<?php echo $assign1['assign_id'] ?>">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse<?php echo $assign1['assign_id'] ?>" aria-expanded="false" aria-controls="collapse<?php echo $assign1['assign_id'] ?>">
-                                <h5><?php echo $assign1['assign_name']; ?></h5>
+                                <h5><?php echo $assign1['assign_name']. " [".$assign1['full_score']."]" ?></h5>
+                                
                             </button>
                         </h3>
                         <div id="collapse<?php echo $assign1['assign_id'] ?>" class="accordion-collapse collapse " aria-labelledby="heading<?php echo $assign1['assign_id'] ?>" data-bs-parent="#accordionExample">
@@ -164,6 +176,11 @@ function accordion_table()
                                                             <input type="hidden" name="sub_assign_id<?php echo  $count_txt ?>" value="<?php echo  $subassign1['sub_assign_id'] ?>">
                                                             <input type="hidden" name="assign_id<?php echo  $count_txt ?>" value="<?php echo  $subassign1['assign_id'] ?>">
                                                             <input type="hidden" name="count_txt" value="<?php echo  $count_txt ?>">
+                                                            <input type="hidden" class="form-control" placeholder="Year" name="clo_year" value="<?php echo $year  ?> ">
+                                                            <input type="hidden" class="form-control" placeholder="Semester" name="semester" value="<?php echo $semester ?>">
+                                                            <input type="hidden" class="form-control" placeholder="Section" name="section" value="<?php echo $section  ?>">
+                                                            <input type="hidden" class="form-control" name="program_id" value="<?php echo $program_id ?>">
+                                                            <input type="hidden" class="form-control" name="course_id" value="<?php echo $course ?> ">
                                                         </td>
 
                                                     <?php $weight_clo_assign = "";

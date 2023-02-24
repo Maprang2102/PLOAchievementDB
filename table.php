@@ -78,6 +78,7 @@ function table_plo()
                                 <input type="hidden" name="plo_id<?php echo  $count_txt ?>" value="<?php echo  $row1['plo_id'] ?>">
                                 <input type="hidden" name="course_id<?php echo  $count_txt ?>" value="<?php echo  $row['course_id'] ?>">
                                 <input type="hidden" name="count_txt" value="<?php echo  $count_txt ?>">
+                                <input type="hidden" name="program_id" value="<?php echo  $pointer ?>">
                             </td>
                         <?php }
                     } else {
@@ -96,6 +97,7 @@ function table_plo()
                                 <input type="hidden" name="plo_id<?php echo  $count_txt ?>" value="<?php echo  $row1['plo_id'] ?>">
                                 <input type="hidden" name="course_id<?php echo  $count_txt ?>" value="<?php echo  $row['course_id'] ?>">
                                 <input type="hidden" name="count_txt" value="<?php echo  $count_txt ?>">
+                                <input type="hidden" name="program_id" value="<?php echo  $pointer ?>">
                             </td>
                     <?php $weight_course_plo="";
                         }
@@ -127,9 +129,6 @@ function table_clo()
     LEFT JOIN  `clo`  
     ON   `clo`.clo_id = `course_clo`.clo_id 
     Where `course_clo`.`course_id`  ='$pointer' ";
-    $sub_table = "program_id";
-    $insertData = "---";
-    $show = "CLO";
     $table_head_id = "plo_code";
     $table_head_detail = "PLO";
     $table_body_id = "CLO";
@@ -139,8 +138,6 @@ function table_clo()
     $course = $_GET["course"];
     $section = $_GET["section"];
     $table_plo_clo = "SELECT * FROM plo_clo WHERE year_str='$year' AND semester_id='$semester' AND course_id='$course' AND section_id='$section'";
-    $col = [1, 4, 6, 8, 15, 3, 5, 1];
-    $row = [1, 2, 3, 4, 5, 6, 7, 8];
     $count_clo = 0;
     $count_plo = 0;
     $count_radio = 0;
@@ -167,8 +164,6 @@ function table_clo()
     </div>
     <br>
     <form method="post" action="post_table.php">
-        <!-- method="post" action="post_table.php" -->
-        <!-- <input type="radio" name="rdoTest" id="rdoTestClo23" value="2" checked> -->
         <table id='tbclo' style='width:100%;' class="table table-hover ">
             <thead>
                 <!-- หัวตาราง -->
@@ -231,6 +226,7 @@ function table_clo()
                             <td style="text-align:center">
                                 <input type="radio" name="rdo<?php echo $clo['clo_id'] ?>" id="rdoTestClo<?php echo $count_clo . $count_plo ?>" value="<?php echo $plo['plo_id'] ?>" <?php if (isset($radio_value) && $radio_value ==  'yes') : ?>checked='checked' <?php endif; ?>>
                                 <input type="hidden" name="course_id" value="<?php echo $course ?>">
+                                <input type="hidden" name="program_id" value="<?php echo $pointer_program ?>">
                                 <input type="hidden" name="plo_id" value="<?php echo $plo['plo_id'] ?>">
                                 <input type="hidden" name="count" value="<?php echo $count_clo ?>">
                                 <input type="hidden" name="year" value="<?php echo $_GET['year']  ?> ">

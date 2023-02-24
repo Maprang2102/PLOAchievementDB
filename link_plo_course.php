@@ -2,6 +2,7 @@
 require('./connect_program.php');
 if (isset($_POST['btnSubmit'])) {
     $count_txt = $_POST['count_txt'];
+    $program_id = $_POST['program_id'];
     for ($i = 1; $i <= $count_txt; $i++) {
         $txt = "txtweight$i";
         $plo = "plo_id$i";
@@ -14,7 +15,7 @@ if (isset($_POST['btnSubmit'])) {
             $course_plo = "INSERT INTO course_plo(weight,plo_id,course_id) VALUE ('$txtWeight','$plo_id','$course_id')";
             $result = mysqli_query($connect, $course_plo);
             if ($result) {
-                header("location: ./plopage.php");
+                header("location: ./plopage.php?program_id=".$program_id);
             } else {
                 echo "Failed";
             }
@@ -22,6 +23,7 @@ if (isset($_POST['btnSubmit'])) {
     }
 }
 if (isset($_POST['btnEdit'])) {
+    $program_id = $_POST['program_id'];
     $count_txt = $_POST['count_txt'];
     for ($i = 1; $i <= $count_txt; $i++) {
         $txt = "txtweight$i";
@@ -42,7 +44,7 @@ if (isset($_POST['btnEdit'])) {
         $result = mysqli_query($connect, $course_plo);
     }
     if ($result) {
-        header("location: ./plopage.php");
+        header("location: ./plopage.php?program_id=".$program_id);
     } else {
         echo "Failed";
     }

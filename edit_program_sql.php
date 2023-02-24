@@ -1,10 +1,10 @@
 <?php
 require("./connect_program.php");
 if (isset($_POST["btnSubmit"])) {
-    $id = $_POST["txtId"];
+    // $id = $_POST["txtId"];
     $name = $_POST["txtName"];
 
-    $query = "INSERT INTO program(program_id,program_name) VALUES('$id','$name')";
+    $query = "INSERT INTO program(program_name) VALUES('$name')";
     $result = mysqli_query($connect, $query);
     if ($result) {
         header( "location: ./edit_program.php" ); 

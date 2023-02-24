@@ -20,13 +20,15 @@ require("navbar.php");
     <div class="box">
       <h3>Add Edit Delete Program</h3>
       <hr>
+      <h5>Add Program</h5>
       <form method="POST" action="edit_program_sql.php">
         <div class="input-group mb-3">
-          <input type="text" class="form-control" placeholder="ID program" name="txtId" />
+          <input type="hidden" class="form-control" placeholder="ID program" name="txtId" />
           <input type="text" class="form-control" placeholder="Name" name="txtName" />
           <button class="btn btn-outline-primary" type="submit" value="Submit" name="btnSubmit">Insert</button>
         </div>
       <hr>
+      <h5>Edit Program</h5>
         <div class="input-group mb-3">
         <select class="form-select" onchange="location = this.value;">
         <option value="">เลือกหลักสูตร</option>
@@ -46,7 +48,7 @@ require("navbar.php");
       <table id="user_data" style='width:100%;' class="table table-hover ">
         <thead>
           <tr>
-            <th style='width:15%;'>Program ID</th>
+            <!-- <th style='width:15%;'>Program ID</th> -->
             <th style='width:35%;'>Program</th>
             <!-- <th style='width:25%;'>Year</th> -->
             <th style='width:15%;'></th>
@@ -63,9 +65,9 @@ require("navbar.php");
             $program_name = $row['program_name'];
           ?>
             <tr id="<?php echo $program_id; ?>" class="edit_tr">
-              <td class="edit_td">
+              <!-- <td class="edit_td">
                 <span id="id_<?php echo $program_id; ?>" class="text"><?php echo $program_id; ?></span>
-              </td>
+              </td> -->
               <td class="edit_td">
                 <span id="name_<?php echo $program_id; ?>" class="text"><?php echo $program_name; ?></span>
               <td>
