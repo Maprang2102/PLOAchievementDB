@@ -12,7 +12,9 @@
 </head>
 <body>
     <?php 
+    // session_start();
     require ('./navbar.php');
+    
     // require ('./session.php');
     ?>
     <div class="container">

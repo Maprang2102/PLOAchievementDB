@@ -65,7 +65,7 @@
                         <option value="">เลือกAssignment</option>
                         <?php while ($assign1 = mysqli_fetch_array($sql_table1)) {
                         ?>
-                            <option value="?program_id=<?php echo $program; ?>&course=<?php echo $course ?>&section=<?php echo $section; ?>&semester=<?php echo $semester; ?>&year=<?php echo $year; ?>&assignment=<?php echo $assign1["assign_id"]; ?>"><?php echo $assign1["assign_name"]; ?></option>
+                            <option value="?program_id=<?php echo $program; ?>&course=<?php echo $course ?>&section=<?php echo $section; ?>&semester=<?php echo $semester; ?>&year=<?php echo $year; ?>&assignment=<?php echo $assign1["assign_id"]; ?>"<?php if($assign1["assign_id"] === $assignment) echo 'selected'?>><?php echo $assign1["assign_name"]; ?></option>
                         <?php } ?>
                     </select>
                 </div>
@@ -105,12 +105,12 @@
                                         </tr>
                                         <tr>
                                             <?php
-                                            $clo_assign = "SELECT `clo`.`clo_name`,`clo`.`clo_id`,`clo`.`clo_code`  
+                                            $clo_assign = "SELECT `clo`.`clo_name`,`clo`.`clo_id`,`clo`.`clo_code` ,`clo_assignment`.`weight` 
                         FROM `clo_assignment` LEFT JOIN  `clo` ON `clo`.clo_id = `clo_assignment`.clo_id 
                         Where `clo_assignment`.`sub_assign_id`  = '$sub_assign' AND `clo_assignment`.`assign_id`='$assignment' ";
                                             $clo_table1 = mysqli_query($connect, $clo_assign);
                                             while ($assign2 = mysqli_fetch_array($clo_table1)) { ?>
-                                                <th>CLO<?php echo $assign2['clo_code'] . " "; ?> </th>
+                                                <th>CLO<?php echo $assign2['clo_code']." [". $assign2['weight'] ?>]</th>
                                             <?php } ?>
                                         </tr>
                                     </table>

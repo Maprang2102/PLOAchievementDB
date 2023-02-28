@@ -22,8 +22,17 @@
     <?php
     session_start();
     // require('./login_sql.php');
-    $role_all = [ "advisor", "student"];
+    if ($_SESSION['all_role'] == 'admin') {
+        $role_all = ["advisor", "student"];
+    } elseif ($_SESSION['all_role'] == 'advisor') {
+        $role_all = ["advisor"];
+    } elseif ($_SESSION['all_role'] == 'student') {
+        $role_all = ["student"];
+    } elseif ($_SESSION['all_role'] == 'user' || $_SESSION['all_role'] == 'normal') {
+        $role_all = [""];
+    }
     require "./session.php";
+    // require "./login_sql.php";
     ?>
     <nav class="sidebar close">
         <header>
@@ -102,7 +111,7 @@
                         </li> -->
                         <li class="nav-link">
                             <a href="assignment.php">
-                            <i class='bx bx-notepad icon'></i>
+                                <i class='bx bx-notepad icon'></i>
                                 <span class="text nav-text">Assignment</span>
                             </a>
                         </li>
@@ -124,7 +133,7 @@
                                         <span class="text nav-text ">Add Score</span></a></li>
                             </ul>
                         </div>
-                        
+
                         <li class="nav-link">
                             <a href="chart.php">
                                 <i class='bx bx-bar-chart icon'></i>
@@ -151,30 +160,38 @@
 
                 </ul>
             </div>
-
-            <div class="bottom-content">
-                <li>
-                    <a href="#" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class='bx bxs-user-circle icon'></i>
-                        <span class="text nav-text">user</span>
-                    </a>
-                    <form method="post" action="session.php">
-                        <ul class="dropdown-menu" id="select_role">
-                            <?php
-                            for ($i = 0; $i < count($role_all); $i++) {
-                            ?>
-                                <a class="dropdown-item" name="data" href="?data=<?php echo $role_all[$i] ?>"><?php echo $role_all[$i] ?></a>
-                            <?php } ?>
-                            <a class="dropdown-item" name="edit_profile" href="edit_profile.php">Edit Profile</a>
-                        </ul>
-                    </form>
-                </li>
-                <li>
-                    <a href="Home.php?data=logout">
-                        <i class='bx bx-log-out icon'></i>
-                        <span class="text nav-text">Logout</span>
-                    </a>
-                </li>
+            <?php if ($_SESSION['role'] != 'normal') { ?>
+                <div class="bottom-content">
+                    <li>
+                        <a href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class='bx bxs-user-circle icon'></i>
+                            <span class="text nav-text">user</span>
+                        </a>
+                        <form method="post" action="session.php">
+                            <ul class="dropdown-menu" id="select_role">
+                                <?php
+                                for ($i = 0; $i < count($role_all); $i++) {
+                                ?>
+                                    <a class="dropdown-item" name="data" href="?data=<?php echo $role_all[$i] ?>"><?php echo $role_all[$i] ?></a>
+                                <?php } ?>
+                                <a class="dropdown-item" name="edit_profile" href="edit_profile.php">Edit Profile</a>
+                            </ul>
+                        </form>
+                    </li>
+                    <li>
+                        <a href="Home.php?data=logout">
+                            <i class='bx bx-log-out icon'></i>
+                            <span class="text nav-text">Logout</span>
+                        </a>
+                    </li>
+                <?php } else { ?>
+                    <li>
+                        <a href="Home.php?data=login">
+                            <i class='bx bx-log-in icon'></i>
+                            <span class="text nav-text">Login</span>
+                        </a>
+                    </li>
+                <?php } ?>
                 <!-- <li class="mode">
                     <div class="sun-moon">
                         <i class='bx bx-moon icon moon'></i>
@@ -187,7 +204,7 @@
                     </div>
                 </li> -->
 
-            </div>
+                </div>
         </div>
 
     </nav>

@@ -16,6 +16,10 @@ if (@$_GET['data'] ) {
         $_SESSION['role'] = "normal";
         header("location: ./login.php");
     }
+    if ($role == "login") {
+        // $_SESSION['role'] = "normal";
+        header("location: ./login.php");
+    }
 } else if ($_SESSION['role']) {
 } else {
     $_SESSION['role'] = "normal";

@@ -48,8 +48,8 @@ function showData($table, $table_header, $table_body_id, $table_body_details, $t
         <thead class="table-light">
             <!-- หัวตาราง -->
             <th style="width: 100px;"><?php echo $table_header ?></th>
-            <th style="text-align: left;"> Detail </th>
-            <th style="text-align: left;"> Detail Eng </th>
+            <th style="text-align: left;width: 500px"> Detail </th>
+            <th style="text-align: left;width: 500px"> Detail Eng </th>
             <th></th>
         </thead>
         <form action='<?php echo $insertData ?>' method="POST">
@@ -64,7 +64,7 @@ function showData($table, $table_header, $table_body_id, $table_body_details, $t
                         <td style="text-align: center;">
                             <?php echo $row[$table_body_id] ?>
                         </td>
-                        <td>
+                        <td >
                             <?php echo $row[$table_body_details]  ?>
                         </td>
                         <td>

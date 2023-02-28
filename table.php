@@ -19,6 +19,7 @@ function table_plo()
     $table_head_detail = "PLO";
     $table_body_id = "course_id";
     $table_body_details = "course_name";
+    
     require('./connect_program.php') ?>
     <style>
         table,
@@ -49,6 +50,7 @@ function table_plo()
                 <tr style="background-color:#ddd">
                     <th rowspan="2"></th>
                     <th colspan="<?php echo $count ?>"><?php echo $table_head_detail ?></th>
+                    <th rowspan="2">Total</th>
                 </tr>
                 <!-- <th rowspan="2" > </th> -->
                 <?php
@@ -58,6 +60,7 @@ function table_plo()
                     echo "<th style='background-color:#ddd'>&nbsp;" . $row['plo_code'] . "&nbsp;</th>";
                 };
                 ?>
+                
             </thead>
             <?php
             $sql_table2 = mysqli_query($connect, $table2);
@@ -69,6 +72,7 @@ function table_plo()
                     <?php
                     $course_plo = mysqli_query($connect, "SELECT * FROM course_plo ");
                     $course_weight = mysqli_num_rows($course_plo);
+                    $total_weight = 0;
                     if ($course_weight <= 0) {
                         $sql_table = mysqli_query($connect, $table);
                         while ($row1 = mysqli_fetch_array($sql_table)) {
@@ -89,6 +93,8 @@ function table_plo()
                             $course_plo = mysqli_query($connect, "SELECT * FROM course_plo WHERE course_id ='$course_id' AND plo_id ='$plo_id'");
                             while ($weight = mysqli_fetch_array($course_plo)) { 
                             $weight_course_plo = $weight['weight'];
+                            $total_weight = $weight['weight'] + $total_weight;
+                            // echo $weight['weight']."<br>";
                             }
                             $count_txt = $count_txt + 1; ?>
                             <td style="text-align: center;">
@@ -99,9 +105,12 @@ function table_plo()
                                 <input type="hidden" name="count_txt" value="<?php echo  $count_txt ?>">
                                 <input type="hidden" name="program_id" value="<?php echo  $pointer ?>">
                             </td>
+                            
                     <?php $weight_course_plo="";
                         }
                     } ?>
+                    <td style="text-align: center;"><?php echo $total_weight;
+                    $total_weight = 0 ; ?></td>
                 </tbody>
 
             <?php } ?>

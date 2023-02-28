@@ -25,6 +25,7 @@ function accordion_table()
     @$year = $_GET['year'];
     $i = 0;
     $count_txt = 0;
+    $total_weight = 0;
     $count_loop = 1;
     if (isset($year)) {
 ?><br>
@@ -60,6 +61,7 @@ function accordion_table()
                                             <tr style="background-color:#ddd">
                                                 <th rowspan="2"></th>
                                                 <th colspan="<?php echo $count_clo ?>">CLO</th>
+                                                <th rowspan="2">Total</th>
                                                 <th rowspan="2"></th>
                                             </tr>
                                             <tr style="background-color:#ddd">
@@ -83,6 +85,7 @@ function accordion_table()
                                                         $clo_assign = mysqli_query($connect, "SELECT * FROM clo_assignment WHERE assign_id='$assignment_id' AND clo_id='$cloclo' AND sub_assign_id='$asssub'");
                                                         while ($cass = mysqli_fetch_array($clo_assign)) {
                                                             $weight_clo_assign = $cass['weight'];
+                                                            $total_weight = $cass['weight'] + $total_weight;
                                                         }
                                                     ?>
                                                         <td style="text-align: center;">
@@ -100,9 +103,12 @@ function accordion_table()
                                                         </td>
 
                                                     <?php $weight_clo_assign = "";
+                                                    
                                                         $count_txt++;
                                                     }
                                                     ?>
+                                                    <td><?php echo $total_weight;
+                                                    $total_weight = 0; ?></td>
                                                     <td>
                                                         <!-- <button type="button" class="btn edit"><i class='bx bx-edit'></i></button> -->
                                                         <!-- <button type="submit" class="btn edit check" name="btnSubmit"><i class='bx bx-check'></i></i></button> -->
@@ -144,6 +150,7 @@ function accordion_table()
                                             <tr style="background-color:#ddd">
                                                 <th rowspan="2"></th>
                                                 <th colspan="<?php echo $count_clo ?>">CLO</th>
+                                                <th rowspan="2">Total</th>
                                                 <th rowspan="2"></th>
                                             </tr>
                                             <tr style="background-color:#ddd">
@@ -167,6 +174,7 @@ function accordion_table()
                                                         $clo_assign = mysqli_query($connect, "SELECT * FROM clo_assignment WHERE assign_id='$assignment_id' AND clo_id='$cloclo' AND sub_assign_id='$asssub'");
                                                         while ($cass = mysqli_fetch_array($clo_assign)) {
                                                             $weight_clo_assign = $cass['weight'];
+                                                            $total_weight = $cass['weight'] + $total_weight;
                                                         }
                                                     ?>
                                                         <td style="text-align: center;">
@@ -187,6 +195,8 @@ function accordion_table()
                                                         $count_txt++;
                                                     }
                                                     ?>
+                                                    <td><?php echo $total_weight;
+                                                    $total_weight = 0; ?></td>
                                                     <td>
                                                         <!-- <button type="button" class="btn edit"><i class='bx bx-edit'></i></button> -->
                                                         <button type="button" class="btn btn-outline-danger" name="btnDelete" value="<?php echo $subassign1['sub_assign_id'] ?>"><i class='bx bxs-trash'></i></button>

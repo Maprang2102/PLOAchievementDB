@@ -1,5 +1,6 @@
 <?php
 require("./connect_program.php");
+session_start();
 if (isset($_POST["btnSubmit"])) {
     $pro = $_POST["selectPro"];
     $id = $_POST["txtId"];
@@ -25,8 +26,10 @@ if (isset($_POST["btnSubmit"])) {
     $cou = "SELECT * FROM course WHERE course_code = '$id'";
     $query = mysqli_fetch_array(mysqli_query($connect, $cou));
     $course_id = $query['course_id'];
+    $teacher_id = $_SESSION['id'];
+    // echo $teacher_id;
 
-    $program_course = "INSERT INTO program_course(year_str,semester_id,course_id,section_id,program_id,teacher_id) VALUE('$year','$semester_id','$course_id','$section_id','$pro','62363660')";
+    $program_course = "INSERT INTO program_course(year_str,semester_id,course_id,section_id,program_id,teacher_id) VALUE('$year','$semester_id','$course_id','$section_id','$pro','$teacher_id')";
     $program_course1 = mysqli_query($connect, $program_course);
     if ($program_course1) {
         header("location: ./edit_courses.php");
