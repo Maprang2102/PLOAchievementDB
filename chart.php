@@ -20,6 +20,7 @@
     require('./chart_bar.php');
     require('./chart_radar_plo.php');
     require('./chart_bar_plo.php');
+    require('./chart_bar_plo_cou.php');
     ?>
     <div class="container">
         <div class="box">
@@ -72,9 +73,12 @@
                     }
                     elseif (isset($_POST['polarchart'])&&$group==2) {
                         chart_radar();
+                        
                     } 
                     elseif (isset($_POST['barchart'])&&$group==2) {
                         chart_bar();
+                        "<br>".
+                        chart_bar_plo_cou();
                     }
                     ?>
                 </div>

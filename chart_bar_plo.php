@@ -15,39 +15,46 @@
     function chart_bar_plo()
     {
         require('./connect_program.php');
-        $program = $_GET['program_id'];
-        $i = 0;
-        $final = 0;
-        $tb_cal_plo = "SELECT DISTINCT `calculate_plo`.`plo_id` FROM `calculate_plo` LEFT JOIN `plo_clo`ON `calculate_plo`.`plo_id` = `plo_clo`.`plo_id` LEFT JOIN `program_plo`  ON `plo_clo`.`plo_id` = `program_plo`.`plo_id` WHERE `program_id` = '$program'";
-        $count_plo = mysqli_query($connect, $tb_cal_plo);
-        while ($count = mysqli_fetch_array($count_plo)) {
-            $count_plo_id = $count['plo_id'];
-            $fill_plo = mysqli_query($connect,"SELECT SUM(plo_weight) AS plo_weight FROM calculate_plo ");
-            while ($sum_plo = mysqli_fetch_array($fill_plo)) {
-                $sum_weight = $sum_plo['plo_weight'];
-                // echo "<hr>";
-                $fill_weight = mysqli_query($connect,"SELECT DISTINCT plo_weight FROM calculate_plo WHERE plo_id = '$count_plo_id' ");
-                while ($weight = mysqli_fetch_array($fill_weight)) {
-                    $plo_weight = $weight['plo_weight'];
-                    $final = number_format((($plo_weight/$sum_weight)+$final),4);
-                    
-                }
-                // echo "plo : ".$count_plo_id." plo : ".$plo_weight." sum : ".$sum_weight." final : ".$final."<br>";
-                $final_sum[$i] = $final;
-                $final = 0;
-            }
-            $calcu = mysqli_query($connect,"SELECT AVG(plo_weight) AS avg,MIN(plo_weight) AS min,MAX(plo_weight) AS max FROM calculate_plo WHERE plo_id = '$count_plo_id' ");
-                while ($cal = mysqli_fetch_array($calcu)) {
-                    $avg[$i] = number_format($cal['avg'],4);
-                    $min[$i] = number_format($cal['min'],4);
-                    $max[$i] = number_format($cal['max'],4);
-                    $plo_show[$i] = "PLO".$count_plo_id;
-                }
-                $i++;
+    // $course_id = $_GET["course"];
+    $i = 0;
+    $j = 0;
+    $sql_score = "SELECT DISTINCT course_id ,plo_code,plo_id,
+    MIN(ary_score)  as min ,
+    MAX(ary_score)  as max ,
+    AVG(ary_score)  as avg 
+    FROM(
+    SELECT DISTINCT student_id  ,clo_id ,plo_id,plo_code,course_id, sum(proport_score) over (PARTITION BY clo_id,student_id) AS ary_score
+    FROM
+    ( SELECT stu.sub_assign_id ,stu.student_id,stu.clo_assign_id,clo.clo_id , clo.assign_id , cal_pro.proport_weight , cal_sub.sub_assign_weight , cal_assign.assign_weight , cou_clo.course_id , cal_cou.calculate_plo_course_id , cal_cou.plo_clo_weight , cal_cou.plo_id,plo.plo_code, stu.score*cal_pro.proport_weight*cal_sub.sub_assign_weight*cal_assign.assign_weight*cal_cou.plo_clo_weight*cal_plo.plo_weight as proport_score
+    FROM student_sub_assign_score stu ,clo_assignment clo ,calculate_proport cal_pro,calculate_sub_assign cal_sub,calculate_assign cal_assign,calculate_plo_course cal_cou,calculate_plo cal_plo,course_clo cou_clo,plo,plo_clo
+    WHERE stu.sub_assign_id = cal_pro.sub_assign_id AND 
+        clo.clo_assign_id = stu.clo_assign_id AND 
+        clo.clo_id = cal_pro.clo_id AND
+        cal_sub.assign_id = cal_pro.assign_id AND
+        cal_sub.sub_assign_id = cal_pro.sub_assign_id AND
+        cal_assign.assign_id = cal_sub.assign_id AND
+        cal_cou.course_id = cal_assign.course_id AND
+        cal_plo.plo_id = cal_cou.plo_id AND
+        cal_plo.course_id =cal_cou.course_id AND
+     clo.clo_id = plo_clo.clo_id AND
+     cal_cou.plo_id = plo_clo.plo_id AND
+    cou_clo.course_id = '305282'
+    ) 
+    AS clo_tb GROUP BY student_id,clo_id,sub_assign_id
+    ) AS sum_clo GROUP BY plo_id";
+
+    $query_score = mysqli_query($connect, $sql_score);
+    while ($score = mysqli_fetch_array($query_score)) {
+      $min[$i] = $score['min'] * 100;
+      $max[$i] = $score['max'] * 100;
+      $avg[$i] = $score['avg'] * 100;
+      $plo[$i] = 'plo' . $i + 1;
+      $i++;
+    }
             // $count_std_id = $count['student_id'];
             // $quotient[$count_plo_id] = $product_plo[$count_std_id][$count_clo_id] / $sum_all;
             // echo $quotient[$count_plo_id] . "<hr>";
-        }
+        
     ?>
         <div style="width: 1000px;">
             <canvas id="myChart"></canvas>
@@ -55,34 +62,11 @@
 
         <script>
             // === include 'setup' then 'config' above ===
-            const labels = <?php echo json_encode($plo_show) ?>;
+            const labels = <?php echo json_encode($plo) ?>;
             const data = {
                 labels: labels,
                 datasets: [{
                         type: 'bar',
-                        label: 'sum',
-                        data: <?php echo json_encode($final_sum) ?>,
-                        backgroundColor: [
-                            //     'rgba(255, 99, 132, 0.2)',
-                            //     'rgba(255, 159, 64, 0.2)',
-                            //     'rgba(255, 205, 86, 0.2)',
-                            //     'rgba(75, 192, 192, 0.2)',
-                            //     'rgba(54, 162, 235, 0.2)',
-                            'rgba(153, 102, 255, 0.1)',
-                            //     'rgba(201, 203, 207, 0.2)'
-                        ],
-                        //   borderColor: [
-                        // 'rgb(255, 99, 132)',
-                        // 'rgb(255, 159, 64)',
-                        // 'rgb(255, 205, 86)',
-                        // 'rgb(75, 192, 192)',
-                        // 'rgb(54, 162, 235)',
-                        // 'rgb(153, 102, 255)',
-                        // 'rgb(201, 203, 207)'
-                        //   ],
-                        borderWidth: 1
-                    }, {
-                        type: 'line',
                         label: 'Maximum',
                         data: <?php echo json_encode($max) ?>,
                         //   backgroundColor: [
@@ -105,7 +89,7 @@
                         ],
                         borderWidth: 1
                     }, {
-                        type: 'line',
+                        type: 'bar',
                         label: 'Minimum',
                         data: <?php echo json_encode($min) ?>,
                         //   backgroundColor: [

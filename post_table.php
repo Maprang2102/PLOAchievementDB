@@ -23,9 +23,9 @@ if (isset($_POST['btnSubmit'])) {
         $count++;
         // echo "clo : ".$clo." plo : ".$plo." weight : ".$weight;
         
-        $check1 = mysqli_query($connect, "SELECT * FROM plo_clo WHERE course_id = '$course_id' AND year_str = '$year' AND semester_id = '$semester' AND section_id = '$section' AND plo_id = '$plo' AND clo_id = '$clo'");
+        $check1 = mysqli_query($connect, "SELECT * FROM plo_clo WHERE course_id = '$course_id' AND year_str = '$year' AND semester_id = '$semester' AND section_id = '$section' AND clo_id = '$clo'");
         while ($check2 = mysqli_fetch_array($check1)) {
-            $plo_clo = "UPDATE plo_clo SET weight='$weight' WHERE course_id = '$course_id' AND year_str = '$year' AND semester_id = '$semester' AND section_id = '$section' AND plo_id = '$plo' AND clo_id = '$clo'";
+            $plo_clo = "UPDATE plo_clo SET weight='$weight' , plo_id = '$plo' WHERE course_id = '$course_id' AND year_str = '$year' AND semester_id = '$semester' AND section_id = '$section' AND clo_id = '$clo'";
             $check_update = 1;
         }
         if ($check_update == 0) {

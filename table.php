@@ -146,11 +146,12 @@ function table_clo()
     $semester = $_GET["semester"];
     $course = $_GET["course"];
     $section = $_GET["section"];
-    $table_plo_clo = "SELECT * FROM plo_clo WHERE year_str='$year' AND semester_id='$semester' AND course_id='$course' AND section_id='$section'";
+    $table_plo_clo = "SELECT DISTINCT * FROM plo_clo WHERE year_str='$year' AND semester_id='$semester' AND course_id='$course' AND section_id='$section' ORDER BY `plo_id`,`clo_id` ASC";
     $count_clo = 0;
     $count_plo = 0;
     $count_radio = 0;
     $count_weight = 0;
+    $radio_value = '';
     $check = 0;
     require('./connect_program.php') ?>
     <style>
@@ -212,6 +213,7 @@ function table_clo()
                     $show_clo[] = $show_pclo['clo_id'];
                     $show_plo[] = $show_pclo['plo_id'];
                 }
+                // print_r($show_clo);
             ?>
 
                 <tbody>
@@ -225,7 +227,7 @@ function table_clo()
                         // if ($plo_clo_results <= 0) {
                         $sql_table = mysqli_query($connect, $table);
                         while ($plo = mysqli_fetch_array($sql_table)) {
-
+                            // echo "clo :".$show_clo[$count_radio]."-".$clo['clo_id']." plo :".$show_plo[$count_radio]."-".$plo['plo_id']."<br>";
                             if (($show_clo[$count_radio] == $clo['clo_id']) && ($show_plo[$count_radio] == $plo['plo_id'])) {
                                 $radio_value = 'yes';
                                 $clo_id = $clo['clo_id'];
@@ -244,7 +246,10 @@ function table_clo()
                             </td>
 
                         <?php
+                        $clo_id = $clo['clo_id'];
                             // echo $radio_value;
+                            // echo $clo_id;
+
                             echo '<script type="text/javascript">';
                             echo "var count_clo = '$count_clo';"; // ส่งค่า $data จาก PHP ไปยังตัวแปร data ของ Javascript
                             echo "var count_plo = '$count_plo';";
@@ -267,13 +272,13 @@ function table_clo()
                             <input type="text" name="txtweight<?php echo $count_weight  ?>" style="width: 35px;margin-left:5px">
                         <?php }
                         $count_weight++;
-                        $clo_id = 0;
+                        // $clo_id = 0;
                         $check = 0; ?></td>
                     </tr>
                 </tbody>
 
 
-            <?php $count_radio = $count_radio + 1;
+            <?php $count_radio++;
             } ?>
         </table>
         <button class="btn btn-outline-primary" type="submit" name="btnSubmit" onClick="disable()" value="Submit">Submit</button>

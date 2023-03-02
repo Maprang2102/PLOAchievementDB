@@ -1,101 +1,57 @@
-<?php
-//std_id sub_assign_id->assign_id clo_id
+<?php 
 require('./connect_program.php');
-$sum = 0;
-$i = 0;
-$j = 0;
-$clo_id_old = 0;
-//fillter assign_id
-$tb_cal_ass = "SELECT distinct `sub_assignment`.`assign_id` FROM `calculate` 
-    LEFT JOIN  `sub_assignment`  
-    ON `sub_assignment`.sub_assign_id = `calculate`.sub_assign_id ";
-$fill_assign = mysqli_query($connect, $tb_cal_ass);
-while ($ass = mysqli_fetch_array($fill_assign)) {
-    // echo "ass <br>";
-    $assign_id = $ass['assign_id'];
-    //fillter std_id
-    $tb_cal_std = "SELECT distinct student_id FROM calculate ";
-    $fill_std_id = mysqli_query($connect, $tb_cal_std);
-    while ($std = mysqli_fetch_array($fill_std_id)) {
-        // echo "std <hr>";
-        $std_id = $std['student_id'];
-        $ary_std_id[] = $std_id;
-        //fillter clo_id
-        $tb_cal_clo = "SELECT distinct `calculate`.`clo_id` FROM `calculate` LEFT JOIN  `sub_assignment`  
-            ON   `sub_assignment`.sub_assign_id = `calculate`.sub_assign_id WHERE student_id = '$std_id' AND assign_id = '$assign_id' ORDER BY `calculate`.`clo_id` ASC ";
-        $fill_clo = mysqli_query($connect, $tb_cal_clo);
-        $i = 0;
-        while ($clo = mysqli_fetch_array($fill_clo)) {
-            $clo_id = $clo['clo_id'];
-            $tb_cal_weight = "SELECT distinct `calculate`.`clo_weight` FROM `calculate` LEFT JOIN  `sub_assignment`  
-            ON   `sub_assignment`.sub_assign_id = `calculate`.sub_assign_id WHERE student_id = '$std_id' AND assign_id = '$assign_id' AND clo_id = '$clo_id'";
-            $fill_weight = mysqli_query($connect, $tb_cal_weight);
-            while ($weight = mysqli_fetch_array($fill_weight)) {
-                $clo_weight = $weight['clo_weight'];
-                // echo "ass" . $assign_id . "std : " . $std_id  . " clo : " . $clo_id . "<br>";
-                // echo $weight['clo_weight'] . "<br>";
-                $sum = $sum + $clo_weight;
+$course_id = '305282';
+$sum_assign = 0;
+$clo_old = 0;
+$assign_score = 0;
+$sql_std = "SELECT * FROM student_score WHERE course_id = '$course_id'";
+$query_std = mysqli_query($connect,$sql_std);
+while($std = mysqli_fetch_array($query_std)){
+    $student_id = $std['student_id'];
+    $sql_score = "SELECT * FROM student_sub_assign_score std INNER JOIN clo_assignment clo ON std.clo_assign_id = clo.clo_assign_id WHERE student_id = '$student_id' ORDER BY clo.clo_id,clo.sub_assign_id ASC";
+    $query_score = mysqli_query($connect,$sql_score);
+    while($score = mysqli_fetch_array($query_score)){
+        $score_std = $score['score'];
+        $clo_id = $score['clo_id'];
+        if($clo_id != $clo_old){
+            $sum_assign = 0;
+                
             }
-            $sumall[$std_id][$assign_id][$clo_id] = $sum;
-            $sum = 0;
-            // echo "<hr><hr>";
-            $i++;
+        $sub_assign_id = $score['sub_assign_id'];
+        $sql_proport = "SELECT * FROM calculate_proport WHERE clo_id = '$clo_id' AND sub_assign_id = '$sub_assign_id'  ";
+        $query_proport = mysqli_query($connect,$sql_proport);
+        while($proport = mysqli_fetch_array($query_proport)){
+           
+            $assign_id = $proport['assign_id'];
+            $proport_score = $proport['proport_weight']*$score_std;
+            $sql_sub = "SELECT * FROM calculate_sub_assign WHERE assign_id = '$assign_id' AND sub_assign_id = '$sub_assign_id'";
+            $query_sub = mysqli_query($connect,$sql_sub);
+            while($sub = mysqli_fetch_array($query_sub)){
+                $sub_score = $sub['sub_assign_weight']*$proport_score;
+                
+                $sql_assign = "SELECT * FROM calculate_assign WHERE assign_id = '$assign_id' AND course_id = '$course_id'";
+                $query_assign = mysqli_query($connect, $sql_assign);
+                while($assign = mysqli_fetch_array($query_assign)){
+                    $assign_score = $assign['assign_weight']*$sub_score;
+                    $sum_assign = $assign_score + $sum_assign;
+                    echo "std :: ".$student_id." ::assign : ".$course_id." : ".$clo_id." score_sum : ".$sum_assign."<br>";
+            }
+            
+            
+            }
+            // echo "<hr>".$clo_id." :: ".$clo_old."<br>";
+            if($clo_id == $clo_old && $clo_old != 0){
+                $sum[$student_id][$course_id][$clo_id] = $sum_assign;
+            }
+            $clo_old = $clo_id;
         }
-        // $clo_id_old = 0;
-        $sum = 0;
-    }
-    // echo "<hr>";
-    $j++;
-}
-// print_r($sumall);
-// echo $j . $i;
-
-
-//sum clo
-$sum_all = 0;
-$num_check = 0;
-$ary_sum = [];
-$tb_std_id = "SELECT distinct `calculate`.`student_id` FROM `calculate` ";
-$fill_id = mysqli_query($connect, $tb_std_id);
-while ($id = mysqli_fetch_array($fill_id)) {
-    $fill_assign1 = mysqli_query($connect, $tb_cal_ass);
-    while ($ass1 = mysqli_fetch_array($fill_assign1)) {
-        $assign = $ass1['assign_id'];
-        $fill_clo_id = mysqli_query($connect, $tb_cal_clo);
-        while ($clo_id = mysqli_fetch_array($fill_clo_id)) {
-            $clo_id01 = $clo_id['clo_id'];
-            $std_id = $id['student_id'];
-            $sum_all = $sumall[$std_id][$assign][$clo_id01] + $sum_all;
-            // echo "<br>ary : " . $std_id . " : " . $assign . " : " . $clo_id01;
-            // echo "<br>sum_all : " . $sum_all;
-        }
-        $assign_id1 = $ass1['assign_id'];
-        $ary_sum[$id['student_id']][$assign] = $sum_all;
-        $sum_all = 0;
-        $fill_clo_id = mysqli_query($connect, $tb_cal_clo);
-        $b = 0;
-        while ($clo_id1 = mysqli_fetch_array($fill_clo_id)) {
-            $clo_id = $clo_id1['clo_id'];
-            // echo $clo_id;
-            $final_sum = $sumall[$std_id][$assign][$clo_id] / $ary_sum[$id['student_id']][$assign];
-            // echo "<br>final_sum : "  . number_format($final_sum, 4);
-            $b++;
-            $check = mysqli_query($connect, "SELECT * FROM `calculate_clo` WHERE student_id='$std_id' AND assign_id='$assign' AND clo_id='$clo_id' ");
-            while ($check_table = mysqli_fetch_array($check)) {
-                $weight_clo = "UPDATE calculate_clo SET clo_weight='$final_sum' WHERE student_id='$std_id' AND clo_id='$clo_id' AND assign_id='$assign_id1'";
-                $num_check = 1;
-            }
-            if ($num_check == 0) {
-                $weight_clo = "INSERT INTO calculate_clo(student_id,clo_id,assign_id,clo_weight) VALUE('$std_id','$clo_id','$assign_id1','$final_sum')";
-            }
-            $result = mysqli_query($connect, $weight_clo);
-           $num_check = 0;
-        } 
+        
+        // echo $clo_id;
         
     }
-}
-// print_r($final_sum);
-//keep in ary 
-//sum_all array
-//sum/sumall array
-//keep result to ary n show chart ///
+}print_r($sum);
+
+//PLO_COURSE
+
+
+?>
