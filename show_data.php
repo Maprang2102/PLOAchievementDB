@@ -71,7 +71,7 @@ function showData($table, $table_header, $table_body_id, $table_body_details, $t
                             <?php echo $row[$table_body_details_eng]  ?>
                         </td>
                         <td>
-                            <button class="btn btn-danger" name="btnDelete" value=<?php echo $row[$table_id] ?>>Delete</button>
+                            <button  value="<?php echo $row[$table_id] ?>" class="btn btn-danger delete" name="btnDelete"><i class='bx bx-trash'></i></button>
                         </td>
                     </tr>
                 </tbody>

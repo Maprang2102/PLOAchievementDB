@@ -68,19 +68,23 @@
     ) 
     AS clo_tb GROUP BY student_id,clo_id,sub_assign_id
     ) AS sum_clo GROUP BY plo_id ";
-$query_score_plo = mysqli_query($connect, $sql_score_plo);
-  while ($score_plo = mysqli_fetch_array($query_score_plo)) {
-    $min_plo[$j] = $score_plo['min_clo'] * 100;
-    $max_plo[$j] = $score_plo['max_clo'] * 100;
-    $avg_plo[$j] = $score_plo['avg_clo'] * 100;
-    $clo_plo[$j] = 'plo' . $j + 1;
-    $j++;
-  }
+    $query_score_plo = mysqli_query($connect, $sql_score_plo);
+    while ($score_plo = mysqli_fetch_array($query_score_plo)) {
+      $min_plo[$j] = $score_plo['min_clo'] * 100;
+      $max_plo[$j] = $score_plo['max_clo'] * 100;
+      $avg_plo[$j] = $score_plo['avg_clo'] * 100;
+      $clo_plo[$j] = 'plo' . $j + 1;
+      $j++;
+    }
   ?>
 
 
     <div style="width: 1000px;">
+      <br>
+      <h5> CLO in Course </h5>
       <canvas id="myChart"></canvas>
+      <hr>
+      <h5> PLO in Course </h5>
       <canvas id="myChart1"></canvas>
     </div>
 
@@ -91,45 +95,22 @@ $query_score_plo = mysqli_query($connect, $sql_score_plo);
         labels: labels,
         datasets: [{
             type: 'radar',
-            label: 'Maximum',
-            data: <?php echo json_encode($max) ?>,
-            //   backgroundColor: [
-            // 'rgba(255, 99, 132, 0.2)',
-            // 'rgba(255, 159, 64, 0.2)',
-            // 'rgba(255, 205, 86, 0.2)',
-            // 'rgba(75, 192, 192, 0.2)',
-            // 'rgba(54, 162, 235, 0.2)',
-            // 'rgba(153, 102, 255, 0.2)',
-            // 'rgba(201, 203, 207, 0.2)'
-            //   ],
+            label: 'Minimum',
+            data: <?php echo json_encode($min) ?>,
+              backgroundColor: [
+            //     'rgba(255, 99, 132, 0.2)',
+            //     'rgba(255, 159, 64, 0.2)',
+            //     'rgba(255, 205, 86, 0.2)',
+                'rgba(75, 192, 192, 0.5)',
+            //     'rgba(54, 162, 235, 0.2)',
+            //     'rgba(153, 102, 255, 0.2)',
+            //     'rgba(201, 203, 207, 0.2)'
+              ],
             borderColor: [
               // 'rgb(255, 99, 132)',
               // 'rgb(255, 159, 64)',
               // 'rgb(255, 205, 86)',
-              // 'rgb(75, 192, 192)',
-              'rgb(54, 162, 235)',
-              // 'rgb(153, 102, 255)',
-              // 'rgb(201, 203, 207)'
-            ],
-            borderWidth: 1
-          }, {
-            type: 'radar',
-            label: 'Minimum',
-            data: <?php echo json_encode($min) ?>,
-            //   backgroundColor: [
-            //     'rgba(255, 99, 132, 0.2)',
-            //     'rgba(255, 159, 64, 0.2)',
-            //     'rgba(255, 205, 86, 0.2)',
-            //     'rgba(75, 192, 192, 0.2)',
-            //     'rgba(54, 162, 235, 0.2)',
-            //     'rgba(153, 102, 255, 0.2)',
-            //     'rgba(201, 203, 207, 0.2)'
-            //   ],
-            borderColor: [
-              // 'rgb(255, 99, 132)',
-              'rgb(255, 159, 64)',
-              // 'rgb(255, 205, 86)',
-              // 'rgb(75, 192, 192)',
+              'rgb(75, 192, 192)',
               // 'rgb(54, 162, 235)',
               // 'rgb(153, 102, 255)',
               // 'rgb(201, 203, 207)'
@@ -140,15 +121,15 @@ $query_score_plo = mysqli_query($connect, $sql_score_plo);
             type: 'radar',
             label: 'Average',
             data: <?php echo json_encode($avg) ?>,
-            //   backgroundColor: [
+              backgroundColor: [
             //     'rgba(255, 99, 132, 0.2)',
             //     'rgba(255, 159, 64, 0.2)',
-            //     'rgba(255, 205, 86, 0.2)',
+                'rgba(255, 205, 86, 0.5)',
             //     'rgba(75, 192, 192, 0.2)',
             //     'rgba(54, 162, 235, 0.2)',
             //     'rgba(153, 102, 255, 0.2)',
             //     'rgba(201, 203, 207, 0.2)'
-            //   ],
+              ],
             borderColor: [
               // 'rgb(255, 99, 132)',
               // 'rgb(255, 159, 64)',
@@ -159,7 +140,30 @@ $query_score_plo = mysqli_query($connect, $sql_score_plo);
               // 'rgb(201, 203, 207)'
             ],
             borderWidth: 1
-          },
+          },{
+            type: 'radar',
+            label: 'Maximum',
+            data: <?php echo json_encode($max) ?>,
+              backgroundColor: [
+            'rgba(255, 99, 132,0.5)',
+            // 'rgba(255, 159, 64, 0.2)',
+            // 'rgba(255, 205, 86, 0.2)',
+            // 'rgba(75, 192, 192, 0.2)',
+            // 'rgba(54, 162, 235, 0.2)',
+            // 'rgba(153, 102, 255, 0.2)',
+            // 'rgba(201, 203, 207, 0.2)'
+              ],
+            borderColor: [
+              'rgb(255, 99, 132)',
+              // 'rgb(255, 159, 64)',
+              // 'rgb(255, 205, 86)',
+              // 'rgb(75, 192, 192)',
+              // 'rgb(54, 162, 235)',
+              // 'rgb(153, 102, 255)',
+              // 'rgb(201, 203, 207)'
+            ],
+            borderWidth: 1
+          }, 
         ]
       };
       const labels1 = <?php echo json_encode($clo_plo) ?>;
@@ -169,21 +173,21 @@ $query_score_plo = mysqli_query($connect, $sql_score_plo);
             type: 'radar',
             label: 'Maximum',
             data: <?php echo json_encode($max_plo) ?>,
-            //   backgroundColor: [
-            // 'rgba(255, 99, 132, 0.2)',
+              backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
             // 'rgba(255, 159, 64, 0.2)',
             // 'rgba(255, 205, 86, 0.2)',
             // 'rgba(75, 192, 192, 0.2)',
             // 'rgba(54, 162, 235, 0.2)',
             // 'rgba(153, 102, 255, 0.2)',
             // 'rgba(201, 203, 207, 0.2)'
-            //   ],
+              ],
             borderColor: [
-              // 'rgb(255, 99, 132)',
+              'rgb(255, 99, 132)',
               // 'rgb(255, 159, 64)',
               // 'rgb(255, 205, 86)',
               // 'rgb(75, 192, 192)',
-              'rgb(54, 162, 235)',
+              // 'rgb(54, 162, 235)',
               // 'rgb(153, 102, 255)',
               // 'rgb(201, 203, 207)'
             ],
@@ -192,20 +196,20 @@ $query_score_plo = mysqli_query($connect, $sql_score_plo);
             type: 'radar',
             label: 'Minimum',
             data: <?php echo json_encode($min_plo) ?>,
-            //   backgroundColor: [
+              backgroundColor: [
             //     'rgba(255, 99, 132, 0.2)',
             //     'rgba(255, 159, 64, 0.2)',
             //     'rgba(255, 205, 86, 0.2)',
-            //     'rgba(75, 192, 192, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
             //     'rgba(54, 162, 235, 0.2)',
             //     'rgba(153, 102, 255, 0.2)',
             //     'rgba(201, 203, 207, 0.2)'
-            //   ],
+              ],
             borderColor: [
               // 'rgb(255, 99, 132)',
-              'rgb(255, 159, 64)',
+              // 'rgb(255, 159, 64)',
               // 'rgb(255, 205, 86)',
-              // 'rgb(75, 192, 192)',
+              'rgb(75, 192, 192)',
               // 'rgb(54, 162, 235)',
               // 'rgb(153, 102, 255)',
               // 'rgb(201, 203, 207)'
@@ -216,15 +220,15 @@ $query_score_plo = mysqli_query($connect, $sql_score_plo);
             type: 'radar',
             label: 'Average',
             data: <?php echo json_encode($avg_plo) ?>,
-            //   backgroundColor: [
+              backgroundColor: [
             //     'rgba(255, 99, 132, 0.2)',
-            //     'rgba(255, 159, 64, 0.2)',
-            //     'rgba(255, 205, 86, 0.2)',
+                // 'rgba(255, 159, 64, 0.2)',
+                'rgba(255, 205, 86, 0.2)',
             //     'rgba(75, 192, 192, 0.2)',
             //     'rgba(54, 162, 235, 0.2)',
             //     'rgba(153, 102, 255, 0.2)',
             //     'rgba(201, 203, 207, 0.2)'
-            //   ],
+              ],
             borderColor: [
               // 'rgb(255, 99, 132)',
               // 'rgb(255, 159, 64)',

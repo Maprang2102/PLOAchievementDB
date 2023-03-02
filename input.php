@@ -15,11 +15,14 @@ function input_PLO()
     ON   `plo`.plo_id = `program_plo`.plo_id 
     Where `program_plo`.`program_id`  ='$pointer' ";
     require('./connect_program.php');
+    $query_plo = mysqli_query($connect,$table);
+    $count_plo_code =  mysqli_num_rows($query_plo);
+    // echo $count_plo_code ;
     echo "<h4>เพิ่ม " . $show . "</h4>" ?>
     <form action="<?php echo $insertData ?>" method="POST">
         <div class="input-group mb-3">
             <input type="hidden" class="form-control" name="<?php echo $sub_table ?>" value="<?php echo $pointer  ?> ">
-            <input type="text" class="form-control" placeholder="<?php echo 'กรุณากรอกข้อ ' . $show ?>" name="<?php echo $show_id ?>">
+            <input type="hidden" class="form-control" placeholder="<?php echo 'กรุณากรอกข้อ ' . $show ?>" name="<?php echo $show_id ?>" value="<?php echo $count_plo_code+1 ?>">
             <input type="text" class="form-control" placeholder="<?php echo 'กรุณากรอกข้อมูล ' . $show ?>" name="<?php echo $show_name ?>">
             <input type="text" class="form-control" placeholder="<?php echo 'กรุณากรอกข้อมูล ' . $show ?>" name="<?php echo $show_name1 ?>">
             <button class="btn btn-outline-primary" type="submit" value="Submit" name="btnAdd">Add</button>

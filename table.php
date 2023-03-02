@@ -116,7 +116,7 @@ function table_plo()
             <?php } ?>
         </table>
         <?php 
-        if ($course_weight <= 0) { ?>
+        if (@$course_weight <= 0) { ?>
             <button class="btn btn-outline-primary" type="submit" name="btnSubmit">Add</button>
         <?php 
     } else { ?>

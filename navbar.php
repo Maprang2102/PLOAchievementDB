@@ -47,10 +47,6 @@
         <div class="menu-bar">
             <div class="menu">
 
-                <!-- <li class="search-box">
-                    <i class='bx bx-search icon'></i>
-                    <input type="text" placeholder="Search...">
-                </li> -->
 
                 <ul class="menu-links">
                     <li class="nav-link">
@@ -98,7 +94,7 @@
                                 <li>
                                     <a href="course.php">
                                         <i class='bx bxs-briefcase sub'></i>
-                                        <span class="text nav-text ">Course</span>
+                                        <span class="text nav-text ">CLO</span>
                                     </a>
                                 </li>
                             </ul>
@@ -144,9 +140,9 @@
                     <?php if ($_SESSION['role'] == "student" || $_SESSION['role'] == "admin") { ?>
                         <!-- student -->
                         <li class="nav-link">
-                            <a href="chart.php">
-                                <i class='bx bx-bar-chart icon'></i>
-                                <span class="text nav-text">Chart</span>
+                            <a href="chart_student.php">
+                            <i class='bx bx-bar-chart-alt-2 icon' ></i>
+                                <span class="text nav-text">Chart Student</span>
                             </a>
                         </li>
                     <?php } ?>

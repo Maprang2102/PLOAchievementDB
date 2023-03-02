@@ -139,7 +139,7 @@
                                         <?php echo $stu_score['fname'] . " " . $stu_score['lname'] ?>
                                     </td>
                                     <td>
-                                        <button type="submit" class="btn btn-outline-danger" name="btnDelete" value="<?php echo $stu_score['student_score_id'] ?>"><i class='bx bxs-trash'></i></button>
+                                        <button type="submit" value="<?php echo $stu_score['student_score_id'] ?>" class="btn btn-danger delete" name="btnDelete"><i class='bx bx-trash'></i></button>
                                     </td>
 
                                 </tr><?php } ?>
