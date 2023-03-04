@@ -68,9 +68,9 @@
             }
             if ($year) { ?>
 
-                <h4>CLO</h4>
+                <!-- <h4>CLO</h4> -->
                 <div style="font-size:20px;">
-                    <hr>
+                    <!-- <hr> -->
                     <?php
                     showData_clo($year);
                     ?>

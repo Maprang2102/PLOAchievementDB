@@ -26,6 +26,10 @@ if (isset($_POST['btnSubmit'])) {
             }
             $result = mysqli_query($connect, $clo_assignment);
             if ($result) {
+                 require('./calculate_proport.php');
+                 require('./calculate_sub_assign.php');
+                require('./calculate_assign.php');
+               
                 header("location: ./assignment.php?program_id=".$program_id."&course=".$course_id."&section=".$section."&semester=".$semester."&year=".$clo_year);
             } else {
                 echo "Failed";

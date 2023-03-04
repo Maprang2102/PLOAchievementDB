@@ -98,8 +98,8 @@ function table_plo()
                             }
                             $count_txt = $count_txt + 1; ?>
                             <td style="text-align: center;">
-                                <input type="text" name="txtweight<?php echo  $count_txt ?>" value="<?php echo $weight_course_plo  ?>" style="width: 35px;margin-left:5px">
-                                <input type="hidden" name="weight_old<?php echo  $count_txt ?>" value="<?php echo $weight_course_plo;  ?>">
+                                <input type="text" name="txtweight<?php echo  $count_txt ?>" value="<?php echo @$weight_course_plo  ?>" style="width: 35px;margin-left:5px">
+                                <input type="hidden" name="weight_old<?php echo  $count_txt ?>" value="<?php echo @$weight_course_plo;  ?>">
                                 <input type="hidden" name="plo_id<?php echo  $count_txt ?>" value="<?php echo  $row1['plo_id'] ?>">
                                 <input type="hidden" name="course_id<?php echo  $count_txt ?>" value="<?php echo  $row['course_id'] ?>">
                                 <input type="hidden" name="count_txt" value="<?php echo  $count_txt ?>">
@@ -228,7 +228,7 @@ function table_clo()
                         $sql_table = mysqli_query($connect, $table);
                         while ($plo = mysqli_fetch_array($sql_table)) {
                             // echo "clo :".$show_clo[$count_radio]."-".$clo['clo_id']." plo :".$show_plo[$count_radio]."-".$plo['plo_id']."<br>";
-                            if (($show_clo[$count_radio] == $clo['clo_id']) && ($show_plo[$count_radio] == $plo['plo_id'])) {
+                            if ((@$show_clo[$count_radio] == $clo['clo_id']) && ($show_plo[$count_radio] == $plo['plo_id'])) {
                                 $radio_value = 'yes';
                                 $clo_id = $clo['clo_id'];
                             }

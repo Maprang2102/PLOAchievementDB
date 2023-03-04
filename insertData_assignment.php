@@ -9,6 +9,7 @@ if (isset($_POST['btnAdd'])) {
     $semester = $_POST['semester'];
     $section = $_POST['section'];
     $program_id = $_POST['program_id'];
+    echo "----------".$assign_name.$teacher_id;
 
     $sql = "INSERT INTO assignment(assign_name,course_id,teacher_id,full_score) VALUES('$assign_name','$course_id','$teacher_id','$full_score')";
 
@@ -22,7 +23,7 @@ if (isset($_POST['btnAdd'])) {
 }
 if (isset($_POST['btnEdit'])) {
     $assign_id = $_POST['assign_id'];
-    $full_score = $_POST['full_score'];
+    $full_score = $_POST['full_score_edit'];
     $course_id = $_POST['course_id'];
     $teacher_id = $_POST['teacher_id'];
     $clo_year = $_POST['clo_year'];

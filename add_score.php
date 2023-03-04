@@ -92,6 +92,12 @@
                 ?>
                 <h4><?php echo $assign_name1; ?></h4><hr>
                 <form method="post" action="add_score_sql.php">
+                <input type="hidden" class="form-control" name="year" value="<?php echo $_GET['year']  ?> ">
+                <input type="hidden" class="form-control" name="semester" value="<?php echo $_GET['semester']  ?>">
+                <input type="hidden" class="form-control" name="section" value="<?php echo $_GET['section']  ?>">
+                <input type="hidden" class="form-control" name="program_id" value="<?php echo $_GET['program_id'] ?>">
+                <input type="hidden" class="form-control" name="course_id" value="<?php echo $_GET['course']  ?> ">
+                <input type="hidden" class="form-control" name="assignment" value="<?php echo $_GET['assignment']  ?> ">
                     <table style='width:100%;' class="table table-hover ">
                         <thead style="background-color: #fff;">
                             <th rowspan="2">ชื่อ-นามสกุล</th>

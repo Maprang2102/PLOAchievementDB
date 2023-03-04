@@ -11,7 +11,7 @@ if (isset($_POST["btnAdd"])) {
     $program_id = $_POST['program_id'];
 
     $course_spl = "INSERT INTO sub_assignment(topic,weight,assign_id) VALUE('$topic','$weight','$assign_id')";
-
+    // echo "-------".$topic.$weight; 
     $result = mysqli_query($connect, $course_spl);
 
     if ($result) {
@@ -21,7 +21,7 @@ if (isset($_POST["btnAdd"])) {
     }
 }
 if (isset($_POST["btnEdit"])) {
-    $topic = $_POST['topic'];
+    $topic = $_POST['topic_edit'];
     // $weight = $_POST['weight'];
     $sub_assign_id = $_POST['sub_assign_id'];
     $course_id = $_POST['course_id'];

@@ -44,6 +44,7 @@ if (isset($_POST['btnEdit'])) {
         $result = mysqli_query($connect, $course_plo);
     }
     if ($result) {
+        require('./calculate_plo_program.php');
         header("location: ./plopage.php?program_id=".$program_id);
     } else {
         echo "Failed";

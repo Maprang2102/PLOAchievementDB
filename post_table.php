@@ -37,6 +37,8 @@ if (isset($_POST['btnSubmit'])) {
         
     }
     if ($result) {
+        require('./calculate_plo_course.php');
+        
             header("location: ./course.php?program_id=".$program_id."&course=".$course_id."&section=".$section."&semester=".$semester."&year=".$year);
         } else {
             echo "Failed";

@@ -58,12 +58,15 @@ function input_CLO()
     $table = "SELECT `clo`.`clo_name`,`clo`.`clo_code`,`clo`.`clo_id`  FROM `course_clo` 
     LEFT JOIN  `clo`  
     ON   `clo`.clo_id = `course_clo`.clo_id 
-    Where `course_clo`.`year_str`  ='$pointer' "; ?>
-    <h4>CLO</h4>
+    Where `course_clo`.`year_str`  ='$pointer' ";
+    $query_clo = mysqli_query($connect,$table);
+    $count_clo_code =  mysqli_num_rows($query_clo); ?>
+    <!-- <h4>CLO</h4> -->
     <form action="insertData_clo.php" method="POST">
+    <h5>Add CLO</h5>
         <div class="input-group mb-3">
             <input type="hidden" class="form-control" name="course_id" value="<?php echo $_GET['course']  ?> ">
-            <input type="text" class="form-control" placeholder="Number" name="clo_code">
+            <input type="hidden" class="form-control" placeholder="Number" name="clo_code" value="<?php echo $count_clo_code+1 ?>">
             <input type="text" class="form-control" placeholder="Name Thai" name="clo_name">
             <input type="text" class="form-control" placeholder="Name Eng" name="clo_nameeng">
             <input type="hidden" class="form-control" placeholder="Year" name="clo_year" value="<?php echo $_GET['year']  ?> ">
@@ -72,6 +75,8 @@ function input_CLO()
             <input type="hidden" class="form-control" name="program_id" value="<?php echo $program_id ?>">
             <button class="btn btn-outline-primary" type="submit" value="Submit" name="btnAdd">Add</button>
         </div>
+        <h5>Edit CLO</h5>
+
         <div class="input-group mb-3">
             <select name="Ploid" class="form-select">
                 <option value="">เลือกข้อ</option>
@@ -100,6 +105,7 @@ function input_CLO()
 }
 function input_Assignment()
 {
+    
     $pointer = @$_GET['course'];
     $table = "assignment";
     $sub_table = "course_id";
@@ -120,7 +126,7 @@ function input_Assignment()
             <input type="hidden" class="form-control" name="program_id" value="<?php echo $_GET['program_id'] ?>">
             <input type="hidden" class="form-control" name="course_id" value="<?php echo $_GET['course']  ?> ">
             <input type="hidden" class="form-control" name="<?php echo $sub_table ?>" value="<?php echo $pointer  ?> ">
-            <input type="hidden" class="form-control" name="teacher_id" value="62363660">
+            <input type="hidden" class="form-control" name="teacher_id" value="<?php echo $_SESSION['id'] ?>">
             <input type="text" class="form-control" placeholder="<?php echo 'กรุณากรอกข้อมูล ' . $show ?>" name="assign_name">
             <input type="text" class="form-control" placeholder="กรุณากรอกสัดส่วนคะแนน" name="full_score">
             <button class="btn btn-outline-primary" type="submit" value="Submit" name="btnAdd">Add</button>
@@ -136,7 +142,7 @@ function input_Assignment()
                     <option value="<?php echo $row["assign_id"]; ?> "><?php echo $row["assign_name"]; ?></option>
                 <?php } ?>
             </select>
-            <input type="text" class="form-control" placeholder="กรุณากรอกสัดส่วนคะแนน" name="full_score">
+            <input type="text" class="form-control" placeholder="กรุณากรอกสัดส่วนคะแนน" name="full_score_edit">
             <button class="btn btn-outline-primary" type="submit" value="Submit" name="btnEdit">Edit</button>
         </div>
     </form>
@@ -189,7 +195,7 @@ function input_Subassign()
                     <option value="<?php echo $row["sub_assign_id"]; ?> "><?php echo $row["topic"]; ?></option>
                 <?php } ?>
             </select>
-            <input type="text" class="form-control" placeholder="กรุณากรอก Subassignment" name="topic">
+            <input type="text" class="form-control" placeholder="กรุณากรอก Subassignment" name="topic_edit">
             <!-- <input type="text" class="form-control" placeholder="กรุณากรอกสัดส่วนคะแนน" name="full_score"> -->
             <button class="btn btn-outline-primary" type="submit" value="Submit" name="btnEdit">Edit</button>
         </div>

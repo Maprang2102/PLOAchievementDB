@@ -1,6 +1,12 @@
 <?php 
 require('./connect_program.php');
 if(isset($_POST['btnSave'])){
+    $program_id = $_POST['program_id'];
+    $course_id = $_POST['course_id'];
+    $semester = $_POST['semester'];
+    $section = $_POST['section'];
+    $year = $_POST['year'];
+    $assignment = $_POST['assignment'];
     $check_update = 0;
     $count_txt = $_POST['count_txt'];
     for ($i = 0; $i <= $count_txt; $i++) {
@@ -34,8 +40,8 @@ if(isset($_POST['btnSave'])){
         }
     }
     if ($result) {
-        require('./calculate.php');
-        header("location: ./add_score.php");
+        // require('./calculate.php');
+        header("location: ./add_score.php?program_id=".$program_id."&course=".$course_id."&section=".$section."&semester=".$semester."&year=".$year."&assignment=".$assignment);
     } else {
         echo "Failed";
     }
