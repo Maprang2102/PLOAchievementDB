@@ -9,20 +9,21 @@ if(isset($_POST['btnAdd'])){
     $student_id = $_POST['student_id'];
     $student_course = "INSERT INTO student_score(year_str,semester_id,course_id,section_id,student_id) VALUE('$year','$semester_id','$course_id','$section_id','$student_id')";
     $student_course1 = mysqli_query($connect, $student_course);
+    // echo "./add_student_course.php?program_id=".$program_id."&course=".$course_id."&section=".$section_id."&semester=".$semester_id."&year=".$year;
     if ($student_course1) {
-        header("location: ./add_student_course.php?program_id=".$program_id."&course=".$course_id."&section=".$section."&semester=".$semester."&year=".$year);
+        header("location: ./add_student_course.php?program_id=".$program_id."&course=".$course_id."&section=".$section_id."&semester=".$semester_id."&year=".$year);
     } else {
         echo 'fail';
     }
 }
-echo "del";
+// echo "del";
 if(isset($_POST['btnDelete'])){
-    echo "delete";
+    // echo "delete";
     $student_score_id = $_POST['btnDelete'];
     $query = "DELETE FROM student_score WHERE student_score_id = '$student_score_id'";
     $result = mysqli_query($connect, $query);
     if ($result) {
-        header("location: ./add_student_course.php?program_id=".$program_id."&course=".$course_id."&section=".$section."&semester=".$semester."&year=".$year);
+        header("location: ./add_student_course.php?program_id=".$program_id."&course=".$course_id."&section=".$section_id."&semester=".$semester_id."&year=".$year);
     } else {
         echo 'fail';
     }

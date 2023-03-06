@@ -294,7 +294,7 @@ function add_student()
                     <option value="<?php echo $row["student_id"]; ?> "><?php echo $row["fname"] . " " . $row["lname"]; ?></option>
                 <?php } ?>
             </select>
-            <input type="hidden" class="form-control" name="program_id" value="<?php echo $program_id ?>">
+            <input type="hidden" class="form-control" name="program_id" value="<?php echo $_GET["program_id"] ?>">
             <input type="hidden" name="course" value="<?php echo $_GET["course"] ?>">
             <input type="hidden" name="semester" value="<?php echo $_GET["semester"] ?>">
             <input type="hidden" name="section" value="<?php echo $_GET["section"] ?>">
