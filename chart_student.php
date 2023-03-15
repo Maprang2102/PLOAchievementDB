@@ -16,11 +16,12 @@
     include './navbar.php';
     require('./connect_program.php');
     require('./select.php');
-    require('./chart_test.php');
-    require('./chart_bar.php');
-    require('./chart_radar_plo.php');
-    require('./chart_bar_plo.php');
-    require('./chart_bar_plo_cou.php');
+    // require('./chart_test.php');
+    // require('./chart_bar.php');
+    require('./chart_stu_bar.php');
+    require('./chart_stu_radar.php');
+    // require('./chart_bar_plo.php');
+    // require('./chart_bar_plo_cou.php');
     ?>
     <div class="container">
         <div class="box">
@@ -72,13 +73,12 @@
                         chart_bar_plo();
                     }
                     elseif (isset($_POST['polarchart'])&&$group==2) {
-                        chart_radar();
-                        
+                        chart_radar_clo();
                     } 
                     elseif (isset($_POST['barchart'])&&$group==2) {
-                        chart_bar();
-                        "<br>".
-                        chart_bar_plo_cou();
+                        chart_bar_clo();
+                        // "<br>".
+                        // chart_bar_plo_cou();
                     }
                     ?>
                 </div>
