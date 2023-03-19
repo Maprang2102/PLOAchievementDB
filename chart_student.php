@@ -54,8 +54,8 @@
                 <div class="row justify-content-start">
 
                     <form method="post">
-                        <button type="submit" class="btn btn-outline-primary" name="polarchart">Polarchart</button>
-                        <button type="submit" class="btn btn-outline-primary" name="barchart">Barchart</button>
+                        <button type="submit" class="btn btn-outline-primary" name="polarchart">กราฟใยแมงมุม</button>
+                        <button type="submit" class="btn btn-outline-primary" name="barchart">กราฟแท่ง</button>
                     </form>
 
                     <?php

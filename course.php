@@ -48,7 +48,7 @@
                 $semester_name = $name_sem['semester_name'];
             }
             ?>
-            <h4>Course : <?php echo "".@$program_name." -".@$course_name." -".@$section_name." -".@$semester_name." -".@$year; ?></h4>
+            <h4>รายวิชา : <?php echo "".@$program_name." -".@$course_name." -".@$section_name." -".@$semester_name." -".@$year; ?></h4>
             <?php select_course_section(); ?>
         </div>
     </div>
@@ -56,8 +56,8 @@
     <div class="container">
         <div class="box">
             <form method="post" style="justify-content: flex-end; display: flex;">
-                <input class="btn btn-outline-primary" type="submit" name="input_clo" value="Add CLO" />
-                <input class="btn btn-outline-primary" type="submit" name="import_excel" value="Upload Excel" style="margin-left: 16px;" />
+                <input class="btn btn-outline-primary" type="submit" name="input_clo" value="เพิ่ม CLO" />
+                <input class="btn btn-outline-primary" type="submit" name="import_excel" value="อัพโหลดExcel" style="margin-left: 16px;" />
             </form>
             <?php
             if (isset($_POST['input_clo'])) {

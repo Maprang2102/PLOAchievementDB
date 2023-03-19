@@ -18,17 +18,17 @@ require("navbar.php");
 <body>
   <div class="container">
     <div class="box">
-      <h3>Add Edit Delete Program</h3>
+      <h3>เพิ่ม แก้ไข ลบ หลักสูตร</h3>
       <hr>
-      <h5>Add Program</h5>
+      <h5>เพิ่มหลักสูตร</h5>
       <form method="POST" action="edit_program_sql.php">
         <div class="input-group mb-3">
-          <input type="hidden" class="form-control" placeholder="ID program" name="txtId" />
-          <input type="text" class="form-control" placeholder="Name" name="txtName" />
-          <button class="btn btn-outline-primary" type="submit" value="Submit" name="btnSubmit">Insert</button>
+          <input type="hidden" class="form-control" name="txtId" />
+          <input type="text" class="form-control" placeholder="ชื่อหลักสูตร" name="txtName" />
+          <button class="btn btn-outline-primary" type="submit" value="Submit" name="btnSubmit">เพิ่มข้อมูล</button>
         </div>
       <hr>
-      <h5>Edit Program</h5>
+      <h5>แก้ไขหลักสูตร</h5>
         <div class="input-group mb-3">
         <select class="form-select" onchange="location = this.value;">
         <option value="">เลือกหลักสูตร</option>
@@ -41,15 +41,15 @@ require("navbar.php");
         $program_id = $_GET['program_id'] ?>
     </select>
           <input type="hidden" class="form-control" placeholder="ID program" name="editId" value="<?php echo $program_id ?>"/>
-          <input type="text" class="form-control" placeholder="Name" name="editName" />
-          <button class="btn btn-outline-primary" type="submit" value="Submit" name="btnEdit">Edit</button>
+          <input type="text" class="form-control" placeholder="ชื่อหลักสูตร" name="editName" />
+          <button class="btn btn-outline-primary" type="submit" value="Submit" name="btnEdit">แก้ไขข้อมูล</button>
         </div>
 
       <table id="user_data" style='width:100%;' class="table table-hover ">
         <thead>
           <tr>
             <!-- <th style='width:15%;'>Program ID</th> -->
-            <th style='width:35%;'>Program</th>
+            <th style='width:35%;'>หลักสูตร</th>
             <!-- <th style='width:25%;'>Year</th> -->
             <th style='width:15%;'></th>
           </tr>

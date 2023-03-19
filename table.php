@@ -50,7 +50,7 @@ function table_plo()
                 <tr style="background-color:#ddd">
                     <th rowspan="2"></th>
                     <th colspan="<?php echo $count ?>"><?php echo $table_head_detail ?></th>
-                    <th rowspan="2">Total</th>
+                    <th rowspan="2">ผลรวม</th>
                 </tr>
                 <!-- <th rowspan="2" > </th> -->
                 <?php
@@ -117,10 +117,10 @@ function table_plo()
         </table>
         <?php 
         if (@$course_weight <= 0) { ?>
-            <button class="btn btn-outline-primary" type="submit" name="btnSubmit">Add</button>
+            <button class="btn btn-outline-primary" type="submit" name="btnSubmit">เพิ่ม</button>
         <?php 
     } else { ?>
-            <button class="btn btn-outline-primary" type="submit" name="btnEdit">Edit</button>
+            <button class="btn btn-outline-primary" type="submit" name="btnEdit">แก้ไข</button>
         <?php 
     } ?>
     </form>
@@ -170,7 +170,7 @@ function table_clo()
         }
     </style>
     <div style="display:flex;justify-content: flex-end;">
-        <button class="btn btn-outline-primary" type="submit" name="edit_table" value="Edit Table" style="margin-left:16px;" onclick=" undisable() ">Edit Table</button>
+        <button class="btn btn-outline-primary" type="submit" name="edit_table" value="Edit Table" style="margin-left:16px;" onclick=" undisable() ">แก้ไขข้อมูล</button>
     </div>
     <br>
     <form method="post" action="post_table.php">
@@ -190,7 +190,7 @@ function table_clo()
                 <tr style="background-color:#ddd">
                     <th rowspan="2"></th>
                     <th colspan="<?php echo $count ?>"><?php echo $table_head_detail ?></th>
-                    <th rowspan="2">Weight</th>
+                    <th rowspan="2">ค่าน้ำหนัก</th>
                 </tr>
                 <!-- <th rowspan="2" > </th> -->
                 <?php
@@ -281,7 +281,7 @@ function table_clo()
             <?php $count_radio++;
             } ?>
         </table>
-        <button class="btn btn-outline-primary" type="submit" name="btnSubmit" onClick="disable()" value="Submit">Submit</button>
+        <button class="btn btn-outline-primary" type="submit" name="btnSubmit" onClick="disable()" value="Submit">บันทึกข้อมูล</button>
     </form>
     <script>
         function disable() {

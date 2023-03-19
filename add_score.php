@@ -55,14 +55,14 @@
                 $semester_name = $name_sem['semester_name'];
             }
             ?>
-            <h4>Score : <?php echo "" . @$program_name . " -" . @$course_name . " -" . @$section_name . " -" . @$semester_name . " -" . @$year; ?></h4>
+            <h4>คะแนน : <?php echo "" . @$program_name . " -" . @$course_name . " -" . @$section_name . " -" . @$semester_name . " -" . @$year; ?></h4>
             <?php select_course_section();
             @$assign = "SELECT * FROM assignment WHERE course_id='$course'";
             $sql_table1 = mysqli_query($connect, $assign); ?>
             <div class="row ">
                 <div class="col-12 g-4">
                     <select class="form-select " onchange="location = this.value;">
-                        <option value="">เลือกAssignment</option>
+                        <option value="">เลือกงานที่ได้รับมอบหมาย</option>
                         <?php while ($assign1 = mysqli_fetch_array($sql_table1)) {
                         ?>
                             <option value="?program_id=<?php echo $program; ?>&course=<?php echo $course ?>&section=<?php echo $section; ?>&semester=<?php echo $semester; ?>&year=<?php echo $year; ?>&assignment=<?php echo $assign1["assign_id"]; ?>"<?php if($assign1["assign_id"] === $assignment) echo 'selected'?>><?php echo $assign1["assign_name"]; ?></option>
@@ -188,7 +188,7 @@
                         </tbody>
                     </table>
                     <div style="justify-content: flex-end; display: flex;">
-                    <button class="btn btn-outline-primary" type="submit" name="btnSave">Save</button>
+                    <button class="btn btn-outline-primary" type="submit" name="btnSave">บันทึกข้อมูล</button>
                     </div>
                 </form>
             </div>

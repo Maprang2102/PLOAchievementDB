@@ -47,7 +47,7 @@
                 $semester_name = $name_sem['semester_name'];
             }
             ?>
-            <h4>Assignment : <?php echo "".@$program_name." -".@$course_name." -".@$section_name." -".@$semester_name." -".@$year; ?></h4>
+            <h4>งานที่มอบหมาย : <?php echo "".@$program_name." -".@$course_name." -".@$section_name." -".@$semester_name." -".@$year; ?></h4>
             <?php select_course_section(); ?>
         </div>
     </div>
@@ -55,9 +55,9 @@
     <div class="container">
         <div class="box" style="font-size:20px; overflow: auto;">
             <form method="post" style="justify-content: flex-end; display: flex;">
-                <input class="btn btn-outline-primary" type="submit" name="input_assignment" value="Add Assignment" />
-                <input class="btn btn-outline-primary" type="submit" name="input_sudassign" value="Add Sub assignment" style="margin-left: 16px;"/>
-                <input class="btn btn-outline-primary" type="submit" name="import_excel" value="Upload Excel" style="margin-left: 16px;" />
+                <input class="btn btn-outline-primary" type="submit" name="input_assignment" value="เพิ่มงานที่มอบหมาย" />
+                <input class="btn btn-outline-primary" type="submit" name="input_sudassign" value="เพิ่มงานย่อย" style="margin-left: 16px;"/>
+                <input class="btn btn-outline-primary" type="submit" name="import_excel" value="อัพโหลดExcel" style="margin-left: 16px;" />
                 <!-- <input class="btn btn-outline-primary" type="submit" name="edit_table" value="Edit Table" style="margin-left:16px;" onclick="undisable() " /> -->
                 <br>
             </form>

@@ -59,9 +59,9 @@ function accordion_table()
                                             $count_clo = mysqli_num_rows($clo_table);
                                             ?>
                                             <tr style="background-color:#ddd">
-                                                <th rowspan="2"></th>
+                                                <th rowspan="2">ชื่อวิชา</th>
                                                 <th colspan="<?php echo $count_clo ?>">CLO</th>
-                                                <th rowspan="2">Total</th>
+                                                <th rowspan="2">ผลรวม</th>
                                                 <th rowspan="2"></th>
                                             </tr>
                                             <tr style="background-color:#ddd">
@@ -121,7 +121,7 @@ function accordion_table()
                                         </tbody>
                                     </table>
                                     <div style="justify-content: flex-end; display: flex;">
-                                        <button type="submit" class="btn btn-outline-success" name="btnSubmit">Submit</button>
+                                        <button type="submit" class="btn btn-outline-success" name="btnSubmit">บันทึกข้อมูล</button>
                                     </div>
                                 </form>
                             </div>
@@ -148,9 +148,9 @@ function accordion_table()
                                             $count_clo = mysqli_num_rows($clo_table);
                                             ?>
                                             <tr style="background-color:#ddd">
-                                                <th rowspan="2"></th>
+                                                <th rowspan="2">ชื่อวิชา</th>
                                                 <th colspan="<?php echo $count_clo ?>">CLO</th>
-                                                <th rowspan="2">Total</th>
+                                                <th rowspan="2">ผลรวม</th>
                                                 <th rowspan="2"></th>
                                             </tr>
                                             <tr style="background-color:#ddd">
@@ -208,7 +208,7 @@ function accordion_table()
                                         </tbody>
                                     </table>
                                     <div style="justify-content: flex-end; display: flex;">
-                                        <button type="submit" class="btn btn-outline-success" name="btnSubmit">Submit</button>
+                                        <button type="submit" class="btn btn-outline-success" name="btnSubmit">บันทึกข้อมูล</button>
                                     </div>
                                 </form>
                             </div>

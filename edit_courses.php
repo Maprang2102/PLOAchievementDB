@@ -18,9 +18,9 @@ require("navbar.php");
 <body>
   <div class="container">
     <div class="box">
-      <h3>Add Edit Delete Courses</h3>
+      <h3>เพิ่ม แก้ไข ลบ รายวิชา</h3>
       <hr>
-      <h5>Add Courses</h5>
+      <h5>เพิ่มรายวิชา</h5>
       <form method="POST" action="edit_courses_sql.php">
         <div class="input-group mb-3">
         <select class="form-select" name="selectPro">
@@ -32,11 +32,11 @@ require("navbar.php");
               <option  value="<?php echo $row1['program_id']?>"><?php echo $row1["program_name"]; ?></option>
             <?php } ?>
           </select>
-          <input type="text" class="form-control" placeholder="ID Course" name="txtId" />
-          <input type="text" class="form-control" placeholder="Name Thai" name="txtNameth" />
-          <input type="text" class="form-control" placeholder="Name Eng" name="txtNameen" />
-          <input type="text" class="form-control" placeholder="Year" name="txtYear" />
-          <input type="text" class="form-control" placeholder="Section" name="txtSec" />
+          <input type="text" class="form-control" placeholder="รหัสวิชา" name="txtId" />
+          <input type="text" class="form-control" placeholder="ชื่อวิชา" name="txtNameth" />
+          <input type="text" class="form-control" placeholder="ชื่อวิชา(Eng)" name="txtNameen" />
+          <input type="text" class="form-control" placeholder="ปีการศึกษา" name="txtYear" />
+          <input type="text" class="form-control" placeholder="กลุ่มเรียนที่" name="txtSec" />
           <select class="form-select" name="selectSemes">
             <option value="">เลือกภาคเรียน</option>
             <?php $sem = "SELECT * FROM semester ";
@@ -46,10 +46,10 @@ require("navbar.php");
               <option ><?php echo $row1["semester_name"]; ?></option>
             <?php } ?>
           </select>
-          <button class="btn btn-outline-primary" type="submit" value="Submit" name="btnSubmit">Insert</button>
+          <button class="btn btn-outline-primary" type="submit" value="Submit" name="btnSubmit">เพิ่มข้อมูล</button>
         </div>
         <hr>
-        <h5>Edit Courses</h5>
+        <h5>แก้ไขรายวิชา</h5>
         <div class="input-group mb-3">
           <select class="form-select" onchange="location = this.value;">
             <option value="">เลือกรายวิชา</option>
@@ -61,19 +61,19 @@ require("navbar.php");
             <?php }
             $course_id = $_GET['course_id'] ?>
           </select>
-          <input type="hidden" class="form-control" placeholder="ID Course" name="editId" value="<?php echo $course_id ?>" />
-          <input type="text" class="form-control" placeholder="ID Course" name="editcode" />
-          <input type="text" class="form-control" placeholder="Course Name Thai" name="editName" />
-          <input type="text" class="form-control" placeholder="Course Name eng" name="editNameeng" />
-          <button class="btn btn-outline-primary" type="submit" value="Submit" name="btnEdit">Edit</button>
+          <input type="hidden" class="form-control" placeholder="รหัสวิชา" name="editId" value="<?php echo $course_id ?>" />
+          <input type="text" class="form-control" placeholder="รหัสวิชา" name="editcode" />
+          <input type="text" class="form-control" placeholder="ชื่อวิชา" name="editName" />
+          <input type="text" class="form-control" placeholder="ชื่อวิชา(Eng)" name="editNameeng" />
+          <button class="btn btn-outline-primary" type="submit" value="Submit" name="btnEdit">แก้ไขข้อมูล</button>
         </div>
 
         <table id="user_data" style='width:100%;' class="table table-hover ">
           <thead>
             <tr>
-              <th style='width:15%;'>Course ID</th>
-              <th style='width:35%;'>Name Thai</th>
-              <th style='width:25%;'>Name Eng</th>
+              <th style='width:15%;'>รหัสวิชา</th>
+              <th style='width:35%;'>ชื่อวิชา</th>
+              <th style='width:25%;'>ชื่อวิชา(Eng)</th>
               <th style='width:15%;'></th>
             </tr>
           </thead>

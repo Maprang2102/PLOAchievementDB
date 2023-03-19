@@ -52,7 +52,7 @@
                     <li class="nav-link">
                         <a href="Home.php">
                             <i class='bx bx-home-alt icon'></i>
-                            <span class="text nav-text">Home</span>
+                            <span class="text nav-text">หน้าแรก</span>
                         </a>
                     </li>
                     <!-- advisor -->
@@ -61,7 +61,7 @@
                             <li class="nav-link">
                                 <a class="program-btn">
                                     <i class='bx bx-book icon'></i>
-                                    <span class="text nav-text ">Program</span>
+                                    <span class="text nav-text ">หลักสูตร</span>
                                     <i class='bx bxs-down-arrow arrow first text'></i>
                                 </a>
 
@@ -69,7 +69,7 @@
                             <ul class="program-show">
                                 <li><a href="edit_program.php">
                                         <i class='bx bxs-message-square-edit sub'></i>
-                                        <span class="text nav-text ">Edit Program</span></a></li>
+                                        <span class="text nav-text ">แก้ไขหลักสูตร</span></a></li>
                                 <li><a href="plopage.php">
                                         <i class='bx bxs-book sub'></i>
                                         <span class="text nav-text ">PLO</span></a></li>
@@ -79,7 +79,7 @@
                             <li class="nav-link">
                                 <a class="courses-btn">
                                     <i class='bx bx-message-square-check icon'></i>
-                                    <span class="text nav-text ">Course</span>
+                                    <span class="text nav-text ">รายวิชา</span>
                                     <i class='bx bxs-down-arrow arrow secon text'></i>
                                 </a>
 
@@ -87,7 +87,7 @@
                             <ul class="courses-show">
                                 <li><a href="edit_courses.php">
                                         <i class='bx bxs-message-square-edit sub'></i>
-                                        <span class="text nav-text ">Edit Course</span></a></li>
+                                        <span class="text nav-text ">แก้ไขรายวิชา</span></a></li>
                                 <!-- <li><a href="clopage.php">
                                         <i class='bx bxs-book sub'></i>
                                         <span class="text nav-text ">CLO</span></a></li> -->
@@ -108,14 +108,14 @@
                         <li class="nav-link">
                             <a href="assignment.php">
                                 <i class='bx bx-notepad icon'></i>
-                                <span class="text nav-text">Assignment</span>
+                                <span class="text nav-text">งานที่มอบหมาย</span>
                             </a>
                         </li>
                         <div>
                             <li class="nav-link">
                                 <a class="score-btn">
                                     <i class='bx bx-book icon'></i>
-                                    <span class="text nav-text ">Score</span>
+                                    <span class="text nav-text ">คะแนน</span>
                                     <i class='bx bxs-down-arrow arrow third text'></i>
                                 </a>
 
@@ -123,17 +123,17 @@
                             <ul class="score-show">
                                 <li><a href="add_student_course.php">
                                         <i class='bx bxs-message-square-edit sub'></i>
-                                        <span class="text nav-text ">Add Student</span></a></li>
+                                        <span class="text nav-text ">เพิ่มรายชื่อนิสิต</span></a></li>
                                 <li><a href="add_score.php">
                                         <i class='bx bxs-book sub'></i>
-                                        <span class="text nav-text ">Add Score</span></a></li>
+                                        <span class="text nav-text ">เพิ่มคะแนน</span></a></li>
                             </ul>
                         </div>
 
                         <li class="nav-link">
                             <a href="chart.php">
                                 <i class='bx bx-bar-chart icon'></i>
-                                <span class="text nav-text">Chart</span>
+                                <span class="text nav-text">กราฟวิเคราะห์</span>
                             </a>
                         </li>
                     <?php } ?>
@@ -142,14 +142,14 @@
                         <li class="nav-link">
                             <a href="chart_student.php">
                             <i class='bx bx-bar-chart-alt-2 icon' ></i>
-                                <span class="text nav-text">Chart Student</span>
+                                <span class="text nav-text">กราฟวิเคราะห์นิสิต</span>
                             </a>
                         </li>
                     <?php } ?>
                     <li class="nav-link">
                         <a href="about.php">
                             <i class='bx bx-info-circle icon'></i>
-                            <span class="text nav-text">About me</span>
+                            <span class="text nav-text">เกี่ยวกับ</span>
                         </a>
                     </li>
 
@@ -161,7 +161,7 @@
                     <li>
                         <a href="#" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class='bx bxs-user-circle icon'></i>
-                            <span class="text nav-text">user</span>
+                            <span class="text nav-text">ผู้ใช้งาน</span>
                         </a>
                         <form method="post" action="session.php">
                             <ul class="dropdown-menu" id="select_role">
@@ -170,21 +170,21 @@
                                 ?>
                                     <a class="dropdown-item" name="data" href="?data=<?php echo $role_all[$i] ?>"><?php echo $role_all[$i] ?></a>
                                 <?php } ?>
-                                <a class="dropdown-item" name="edit_profile" href="edit_profile.php">Edit Profile</a>
+                                <a class="dropdown-item" name="edit_profile" href="edit_profile.php">แก้ไขผู้ใช้งาน</a>
                             </ul>
                         </form>
                     </li>
                     <li>
                         <a href="Home.php?data=logout">
                             <i class='bx bx-log-out icon'></i>
-                            <span class="text nav-text">Logout</span>
+                            <span class="text nav-text">ออกจากระบบ</span>
                         </a>
                     </li>
                 <?php } else { ?>
                     <li>
                         <a href="Home.php?data=login">
                             <i class='bx bx-log-in icon'></i>
-                            <span class="text nav-text">Login</span>
+                            <span class="text nav-text">เข้าสู่ระบบ</span>
                         </a>
                     </li>
                 <?php } ?>

@@ -57,7 +57,7 @@
                 $semester_name = $name_sem['semester_name'];
             }
             ?>
-            <h4>Score : <?php echo "" . @$program_name . " -" . @$course_name . " -" . @$section_name . " -" . @$semester_name . " -" . @$year; ?></h4>
+            <h4>คะแนน : <?php echo "" . @$program_name . " -" . @$course_name . " -" . @$section_name . " -" . @$semester_name . " -" . @$year; ?></h4>
             <?php select_course_section();
             @$assign = "SELECT * FROM assignment WHERE course_id='$course'";
             $sql_table1 = mysqli_query($connect, $assign); ?>
@@ -89,8 +89,8 @@
 
                 ?>
                 <form method="post" style="justify-content: flex-end; display: flex;">
-                    <input class="btn btn-outline-primary" type="submit" name="add_student" value="Add Student" />
-                    <input class="btn btn-outline-primary" type="submit" name="import_excel" value="Upload Excel" style="margin-left: 16px;" />
+                    <input class="btn btn-outline-primary" type="submit" name="add_student" value="เพิ่มรายชื่อนิสิต" />
+                    <input class="btn btn-outline-primary" type="submit" name="import_excel" value="อัพโหลดExcel" style="margin-left: 16px;" />
                     <!-- <input class="btn btn-outline-primary" type="submit" name="edit_table" value="Edit Table" style="margin-left:16px;" onclick="undisable() " /> -->
                     <br>
                 </form>

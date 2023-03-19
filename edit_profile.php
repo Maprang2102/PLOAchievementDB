@@ -16,53 +16,95 @@
     <?php
     require('./navbar.php');
     require('./connect_program.php');
+    @$role = $_GET['role'];
     ?>
     <div class="container">
         <div class="box">
-            <h5>Edit Profile</h5>
+            <h5>แก้ไขผู้ใช้งาน</h5>
             <hr>
             <div class="col g-3">
                 <select class="form-select" onchange="location = this.value" aria-label="Default select example">
                     <option selected>เลือกผู้ใช้งาน</option>
-                    <option value="?role=1">Advisor</option>
-                    <option value="?role=2">Student</option>
+                    <option value="?role=1" <?php if($role == 1) echo 'selected'?>>อาจารย์</option>
+                    <option value="?role=2" <?php if($role == 2) echo 'selected'?>>นิสิต</option>
                 </select>
             </div>
-            <?php @$role = $_GET['role'];
+            <?php 
+            $id_session = $_SESSION['id'];
             if ($role == '1') {
                 @$table = 'teacher';
             } else if ($role == '2') {
                 @$table = 'student';
             }
-            if(isset($table)){
-            @$show = mysqli_query($connect, "SELECT * FROM $table");
-            if (mysqli_num_rows($show) <= 5) {
-                if (isset($role)) { ?>
+            @$table_id = $table . '_id';
+            // echo $table_id . "=" . $id_session;
+            if (isset($table)) {
+                @$show = mysqli_query($connect, "SELECT * FROM $table WHERE $table_id = '$id_session'");
+                while ($row = mysqli_fetch_array($show)) {
+                     ?>
                     <form method="POST" action="edit_profile_sql.php" class="row g-3">
                         <div class="row g-3">
                             <div class="col">
-                                <input type="text" class="form-control" name="txtFname" placeholder="First name" aria-label="First name">
+                                <input type="text" class="form-control" name="txtFname" value="<?php echo $row['fname'] ?>" aria-label="First name">
                             </div>
                             <div class="col">
-                                <input type="text" class="form-control" name="txtLname" placeholder="Last name" aria-label="Last name">
+                                <input type="text" class="form-control" name="txtLname" value="<?php echo $row['lname'] ?>" aria-label="Last name">
                             </div>
                         </div>
                         <?php if ($role == '1') { ?>
                             <div class="row g-3">
                                 <div class="col">
-                                    <input type="text" class="form-control" name="txtAdid" placeholder="Advisor ID">
+                                    <input type="text" class="form-control" name="txtAdid" value="<?php echo $row['teacher_id'] ?>">
                                 </div>
                                 <div class="col">
-                                    <input type="text" class="form-control" name="txtFaculty" placeholder="Faculty">
+                                    <input type="text" class="form-control" name="txtFaculty" value="<?php echo $row['type'] ?>">
                                 </div>
                             </div>
                         <?php } else if ($role == '2') { ?>
                             <div class="row g-3">
                                 <div class="col">
-                                    <input type="text" class="form-control" name="txtStuid" placeholder="Student ID">
+                                    <input type="text" class="form-control" name="txtStuid" value="<?php echo $row['student_id'] ?>">
                                 </div>
                                 <div class="col">
-                                    <input type="text" class="form-control" name="txtFaculty" placeholder="Faculty">
+                                    <input type="text" class="form-control" name="txtFaculty" value="<?php echo $row['type'] ?>">
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <input type="text" class="form-control" name="txtProgram" value="<?php echo $row['program_id'] ?>" disabled>
+                            </div>
+                        <?php
+                        } ?>
+                        <button type="submit" class="btn btn-outline-primary" name="btnEdit" value="<?php echo $role ?> ">Edit Profile</button>
+                        <button type="submit" class="btn btn-outline-danger" name="btnDelete" value="<?php echo $role ?> ">Delete Profile</button>
+                    </form>
+                    <?php $check = 1; 
+                    }
+                    if($check != 1) { ?>
+                    <form method="POST" action="edit_profile_sql.php" class="row g-3">
+                        <div class="row g-3">
+                            <div class="col">
+                                <input type="text" class="form-control" name="txtFname" placeholder="ชื่อ" aria-label="First name">
+                            </div>
+                            <div class="col">
+                                <input type="text" class="form-control" name="txtLname" placeholder="นามสกุล" aria-label="Last name">
+                            </div>
+                        </div>
+                        <?php if ($role == '1') { ?>
+                            <div class="row g-3">
+                                <div class="col">
+                                    <input type="text" class="form-control" name="txtAdid" placeholder="รหัสอาจารย์">
+                                </div>
+                                <div class="col">
+                                    <input type="text" class="form-control" name="txtFaculty" placeholder="คณะ">
+                                </div>
+                            </div>
+                        <?php } else if ($role == '2') { ?>
+                            <div class="row g-3">
+                                <div class="col">
+                                    <input type="text" class="form-control" name="txtStuid" placeholder="รหัสนิสิต">
+                                </div>
+                                <div class="col">
+                                    <input type="text" class="form-control" name="txtFaculty" placeholder="คณะ">
                                 </div>
                             </div>
                             <div class="col-12">
@@ -76,48 +118,11 @@
                             </div>
                         <?php
                         } ?>
-                        <button type="submit" class="btn btn-outline-primary" name="btnSubmit" value="<?php echo $role ?> ">Submit</button>
+                        <button type="submit" class="btn btn-outline-primary" name="btnSubmit" value="<?php echo $role ?> ">บันทึกข้อมูล</button>
                     </form>
-                <?php
-                }
-            } else {
-                while ($row = mysqli_fetch_array($show)){ ?>
-                <form method="POST" action="edit_profile_sql.php" class="row g-3">
-                    <div class="row g-3">
-                        <div class="col">
-                            <input type="text" class="form-control" name="txtFname" value="<?php echo $row['fname'] ?>" aria-label="First name">
-                        </div>
-                        <div class="col">
-                            <input type="text" class="form-control" name="txtLname" value="<?php echo $row['lname'] ?>" aria-label="Last name">
-                        </div>
-                    </div>
-                    <?php if ($role == '1') { ?>
-                        <div class="row g-3">
-                            <div class="col">
-                                <input type="text" class="form-control" name="txtAdid" value="<?php echo $row['teacher_id'] ?>">
-                            </div>
-                            <div class="col">
-                                <input type="text" class="form-control" name="txtFaculty" value="<?php echo $row['type'] ?>">
-                            </div>
-                        </div>
-                    <?php } else if ($role == '2') { ?>
-                        <div class="row g-3">
-                            <div class="col">
-                                <input type="text" class="form-control" name="txtStuid" value="<?php echo $row['student_id'] ?>">
-                            </div>
-                            <div class="col">
-                                <input type="text" class="form-control" name="txtFaculty" value="<?php echo $row['type'] ?>">
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <input type="text" class="form-control" name="txtProgram" value="<?php echo $row['program_id'] ?>" disabled >
-                        </div>
-                    <?php
-                    } ?>
-                    <button type="submit" class="btn btn-outline-primary" name="btnEdit" value="<?php echo $role ?> ">Edit Profile</button>
-                    <button type="submit" class="btn btn-outline-danger" name="btnDelete" value="<?php echo $role ?> ">Delete Profile</button>
-                </form>
-            <?php }}} ?>
+
+
+                <?php }} ?>
         </div>
     </div>
 
