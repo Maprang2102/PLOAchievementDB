@@ -40,7 +40,7 @@ if(isset($_POST['btnSave'])){
         }
     }
     if ($result) {
-        // require('./calculate.php');
+        require('./calculate_proport.php');
         header("location: ./add_score.php?program_id=".$program_id."&course=".$course_id."&section=".$section."&semester=".$semester."&year=".$year."&assignment=".$assignment);
     } else {
         echo "Failed";

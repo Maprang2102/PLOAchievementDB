@@ -105,7 +105,7 @@ $sql_score_stu = "SELECT *,sum(proport_score) AS ary_score
     FROM(
     SELECT DISTINCT student_id ,clo_id ,plo_id,plo_code,course_id, sum(proport_score) over (PARTITION BY clo_id,student_id) AS ary_score
     FROM
-    ( SELECT stu.sub_assign_id ,stu.student_id,stu.clo_assign_id,clo.clo_id , clo.assign_id , cal_pro.proport_weight , cal_sub.sub_assign_weight , cal_assign.assign_weight , cou_clo.course_id , cal_cou.calculate_plo_course_id , cal_cou.plo_clo_weight , cal_cou.plo_id,plo.plo_code, stu.score*cal_pro.proport_weight*cal_sub.sub_assign_weight*cal_assign.assign_weight as proport_score
+    ( SELECT stu.sub_assign_id ,stu.student_id,stu.clo_assign_id,clo.clo_id , clo.assign_id , cal_pro.proport_weight , cal_sub.sub_assign_weight , cal_assign.assign_weight , cou_clo.course_id , cal_cou.calculate_plo_course_id , cal_cou.plo_clo_weight , cal_cou.plo_id,plo.plo_code, stu.score*cal_pro.proport_weight*cal_sub.sub_assign_weight*cal_assign.assign_weight*cal_cou.plo_clo_weight as proport_score
     FROM student_sub_assign_score stu ,clo_assignment clo ,calculate_proport cal_pro,calculate_sub_assign cal_sub,calculate_assign cal_assign,calculate_plo_course cal_cou,course_clo cou_clo,plo,plo_clo,program_plo,program_course
     WHERE stu.sub_assign_id = cal_pro.sub_assign_id AND 
     clo.clo_assign_id = stu.clo_assign_id AND 

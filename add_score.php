@@ -127,7 +127,7 @@
                         </thead>
                         <tbody>
                             <?php
-                            $student = mysqli_query($connect, "SELECT
+                            $student = mysqli_query($connect, "SELECT DISTINCT
                                student.`fname`,student.`lname`,student.`student_id`
                            FROM
                                student
